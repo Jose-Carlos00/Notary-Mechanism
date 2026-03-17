@@ -19,8 +19,13 @@ async function main() {
         const wallet2 = new ethers.Wallet(process.env.AMOY_PRIVATE_KEY02);
         holders = [wallet1.address, wallet2.address];
         console.log("Configuring holders for AMOY deployment.");
+    } else if (chainIdDec === 43113) { // Fuji (Avalanche Testnet)
+        const wallet1 = new ethers.Wallet(process.env.FUJI_PRIVATE_KEY01);
+        const wallet2 = new ethers.Wallet(process.env.FUJI_PRIVATE_KEY02);
+        holders = [wallet1.address, wallet2.address];
+        console.log("Configuring holders for FUJI deployment.");
     } else {
-        throw new Error("Unsupported network! Please use 'sepolia' or 'amoy'.");
+        throw new Error("Unsupported network! Please use 'sepolia', 'amoy' or 'fuji'.");
     }
 
     await hre.run('compile');
