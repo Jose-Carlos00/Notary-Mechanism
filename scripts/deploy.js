@@ -30,10 +30,14 @@ async function main() {
 
     await hre.run('compile');
 
-    // Deploy Token
+   // Deploy Token
     const tokenStartTime = Date.now();
     const Token = await ethers.getContractFactory("Token");
-    const token = await Token.deploy(holders);
+    const token = await Token.deploy(holders, {
+        gasLimit: 3000000, 
+        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
+        maxFeePerGas: ethers.parseUnits('50', 'gwei') 
+    });
     await token.waitForDeployment(); 
     
     const tokenAddress = await token.getAddress();
@@ -48,9 +52,16 @@ async function main() {
     console.log("-----------------------------------------");
 
     //Deploy Notary
+    // Deploy Notary
     const notaryStartTime = Date.now();
     const Notary = await ethers.getContractFactory("Notary");
-    const notary = await Notary.deploy(tokenAddress);
+    
+    // Adicionamos os mesmos parâmetros manuais aqui
+    const notary = await Notary.deploy(tokenAddress, {
+        gasLimit: 3000000, 
+        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
+        maxFeePerGas: ethers.parseUnits('50', 'gwei') 
+    });
     await notary.waitForDeployment();
 
     const notaryAddress = await notary.getAddress();
