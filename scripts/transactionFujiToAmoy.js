@@ -8,8 +8,8 @@ const TokenABI = require("../artifacts/contracts/Token.sol/Token.json");
 const {
     NODE_URL_FUJI,
     NODE_URL_AMOY,
-    FUJI_PRIVATE_KEY01, 
-    AMOY_PRIVATE_KEY01, 
+    FUJI_PRIVATE_KEY01, // Carteira para depositar na Fuji (e aprovar)
+    AMOY_PRIVATE_KEY01, // Carteira para receber na Amoy (e executar a ponte)
     NOTARY_ADDRESS_FUJI,
     TOKEN_ADDRESS_FUJI,
     NOTARY_ADDRESS_AMOY,
@@ -23,7 +23,7 @@ async function main() {
     const tokenAddressAmoy = TOKEN_ADDRESS_AMOY;
     const notaryAddressAmoy = NOTARY_ADDRESS_AMOY; 
 
-    // Provedores 
+    // Provedores (ethers.js v6)
     const fujiProvider = new ethers.JsonRpcProvider(
         NODE_URL_FUJI,
         { chainId: 43113, name: 'fuji' } 
@@ -33,45 +33,57 @@ async function main() {
         { chainId: 80002, name: 'amoy' } 
     );
 
+    // Wallets: fujiWallet será o remetente do depósito, amoyWallet o recebedor
     const fujiWallet = new ethers.Wallet(FUJI_PRIVATE_KEY01, fujiProvider);
     const amoyWallet = new ethers.Wallet(AMOY_PRIVATE_KEY01, amoyProvider);
 
-    console.log(`\n--- Transação Fuji para Amoy (RETOMADA) ---`);
+    console.log(`\n--- Transação Fuji para Amoy ---`);
+    console.log(`Carteira Fuji (Depositante): ${fujiWallet.address}`);
     console.log(`Carteira Amoy (Recebedor/Executor): ${amoyWallet.address}`);
 
     // Instanciação dos Contratos
+    const fujiTokenContract = new ethers.Contract(tokenAddressFuji, TokenABI.abi, fujiWallet);
+    const fujiNotaryContract = new ethers.Contract(notaryAddressFuji, NotaryABI.abi, fujiWallet);
     const amoyTokenContract = new ethers.Contract(tokenAddressAmoy, TokenABI.abi, amoyWallet);
     const amoyNotaryContract = new ethers.Contract(notaryAddressAmoy, NotaryABI.abi, amoyWallet);
 
-    const amount = ethers.parseEther('1'); // 1 token da transação
+    const amount = ethers.parseEther('1'); // 1 token para a transação
+    
+    // Endereço recebedor
     const amoyRecipientAddress = amoyWallet.address; 
 
-    /* =========================================================================
-       TRECHO COMENTADO PARA POUPAR TOKENS (O depósito já ocorreu na Fuji)
-    ========================================================================= */
-    /*
+    // --- Aprovação na Fuji ---
     console.log(`\n--- Fuji (Aprovação e Depósito) ---`);
-    const approveFujiTx = await fujiTokenContract.connect(fujiWallet).approve(notaryAddressFuji, amount, ...);
+    console.log(`Aprovando ${ethers.formatEther(amount)} tokens na Fuji para o contrato Notary (${notaryAddressFuji})...`);
+    const approveFujiTx = await fujiTokenContract.connect(fujiWallet).approve(notaryAddressFuji, amount, {
+        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'),
+        maxFeePerGas: ethers.parseUnits('50', 'gwei')
+    });
     await approveFujiTx.wait(); 
-    
-    const depositFujiTx = await fujiNotaryContract.connect(fujiWallet).deposit(amount, amoyRecipientAddress, ...);
+    console.log(`Tokens aprovados na Fuji. Transação: ${approveFujiTx.hash}`);
+
+    // --- Depósito na Fuji ---
+    console.log(`Depositando ${ethers.formatEther(amount)} tokens no Notary da Fuji para ${amoyRecipientAddress} na Amoy...`);
+    const depositFujiTx = await fujiNotaryContract.connect(fujiWallet).deposit(amount, amoyRecipientAddress, {
+        gasLimit: 1000000,
+        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'),
+        maxFeePerGas: ethers.parseUnits('50', 'gwei')
+    });
     await depositFujiTx.wait(); 
+    console.log(`Depósito realizado na Fuji. Transação: ${depositFujiTx.hash}`);
     const lastDepositIdFuji = await fujiNotaryContract.lastDepositID();
-    */
+    console.log(`Último ID de Depósito na Fuji: ${lastDepositIdFuji.toString()}`); 
 
     // --- Executar Ponte na Amoy ---
-    // Forçamos manualmente o ID do depósito que travou anteriormente:
-    const depositIdToBridge = 1; 
+    const depositIdToBridge = lastDepositIdFuji; 
     
     console.log(`\n--- Amoy (Executar Ponte) ---`);
-    console.log(`Executando ponte na Amoy com ID de Depósito ${depositIdToBridge} para ${amoyRecipientAddress}...`);
-    
+    console.log(`Executando ponte na Amoy com ID de Depósito ${depositIdToBridge.toString()} para ${amoyRecipientAddress}...`);
     const executeBridgeAmoyTx = await amoyNotaryContract.connect(amoyWallet).executeBridge(depositIdToBridge, amoyRecipientAddress, amount, {
         gasLimit: 1000000,
         maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'),
         maxFeePerGas: ethers.parseUnits('50', 'gwei')
     });
-    
     await executeBridgeAmoyTx.wait(); 
     console.log(`Ponte executada na Amoy. Transação: ${executeBridgeAmoyTx.hash}`);
 
