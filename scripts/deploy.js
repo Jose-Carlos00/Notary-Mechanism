@@ -30,10 +30,10 @@ async function main() {
 
     await hre.run('compile');
 
-   // Deploy Token
     const tokenStartTime = Date.now();
     const Token = await ethers.getContractFactory("Token");
-    const token = await Token.deploy(holders, {
+   
+    const token = await Token.deploy("MyBridgeToken", "MBT", holders, {
         gasLimit: 3000000, 
         maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
         maxFeePerGas: ethers.parseUnits('50', 'gwei') 
@@ -51,13 +51,12 @@ async function main() {
     console.log(`Token Deployment Time: ${Date.now() - tokenStartTime} ms`);
     console.log("-----------------------------------------");
 
-    //Deploy Notary
-    // Deploy Notary
+   
     const notaryStartTime = Date.now();
     const Notary = await ethers.getContractFactory("Notary");
     
-    // Adicionamos os mesmos parâmetros manuais aqui
-    const notary = await Notary.deploy(tokenAddress, {
+   
+    const notary = await Notary.deploy({
         gasLimit: 3000000, 
         maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
         maxFeePerGas: ethers.parseUnits('50', 'gwei') 
