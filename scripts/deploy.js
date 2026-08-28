@@ -5,7 +5,7 @@ require("dotenv").config();
 async function main() {
     const networkName = hre.network.name;
     const chainIdDec = hre.network.config.chainId;
-    
+
     console.log(`\n--- Deploying on ${networkName} (ChainId: ${chainIdDec}) ---`);
 
     let holders;
@@ -32,35 +32,23 @@ async function main() {
 
     const tokenStartTime = Date.now();
     const Token = await ethers.getContractFactory("Token");
-   
-    const token = await Token.deploy("MyBridgeToken", "MBT", holders, {
-        gasLimit: 3000000, 
-        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
-        maxFeePerGas: ethers.parseUnits('50', 'gwei') 
-    });
-    await token.waitForDeployment(); 
-    
+    const token = await Token.deploy("MyBridgeToken", "MBT", holders);
+    await token.waitForDeployment();
+
     const tokenAddress = await token.getAddress();
     const tokenDeploymentTx = token.deploymentTransaction();
     const tokenReceipt = await tokenDeploymentTx.wait();
-    
+
     console.log("\n-----------------------------------------");
     console.log(`Token address: ${tokenAddress}`);
     console.log(`Deployed by: ${tokenDeploymentTx.from}`);
     console.log(`Gas Used: ${tokenReceipt.gasUsed.toString()}`);
-    console.log(`Token Deployment Time: ${Date.now() - tokenStartTime} ms`);
+    console.log(`Token Deployment Time (nao comparavel entre chains): ${Date.now() - tokenStartTime} ms`);
     console.log("-----------------------------------------");
 
-   
     const notaryStartTime = Date.now();
     const Notary = await ethers.getContractFactory("Notary");
-    
-   
-    const notary = await Notary.deploy({
-        gasLimit: 3000000, 
-        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
-        maxFeePerGas: ethers.parseUnits('50', 'gwei') 
-    });
+    const notary = await Notary.deploy();
     await notary.waitForDeployment();
 
     const notaryAddress = await notary.getAddress();
@@ -71,8 +59,15 @@ async function main() {
     console.log(`Notary address: ${notaryAddress}`);
     console.log(`Deployed by: ${notaryDeploymentTx.from}`);
     console.log(`Gas Used: ${notaryReceipt.gasUsed.toString()}`);
-    console.log(`Notary Deployment Time: ${Date.now() - notaryStartTime} ms`);
+    console.log(`Notary Deployment Time (nao comparavel entre chains): ${Date.now() - notaryStartTime} ms`);
     console.log("-----------------------------------------");
+
+
+    console.log("\n===========================================");
+    console.log(`RESUMO ${networkName.toUpperCase()} — copiar para o .env:`);
+    console.log(`TOKEN_ADDRESS_${networkName.toUpperCase()}=${tokenAddress}`);
+    console.log(`NOTARY_ADDRESS_${networkName.toUpperCase()}=${notaryAddress}`);
+    console.log("===========================================");
 
     console.log("\nDeployment process finished successfully!");
 }

@@ -1,115 +1,61 @@
 require("dotenv").config();
 const { ethers } = require("hardhat");
-
-const NotaryABI = require("../artifacts/contracts/Notary.sol/Notary.json");
-const TokenABI = require("../artifacts/contracts/Token.sol/Token.json");
-
-const {
-   // NODE_URL_SEPOLIA,
-    NODE_URL_AMOY,
-    NODE_URL_FUJI,
-    //SEPOLIA_PRIVATE_KEY01,
-    AMOY_PRIVATE_KEY01,
-    FUJI_PRIVATE_KEY01,
- //   NOTARY_ADDRESS_SEPOLIA,
-   // TOKEN_ADDRESS_SEPOLIA,
-    NOTARY_ADDRESS_AMOY,
-    TOKEN_ADDRESS_AMOY,
-    NOTARY_ADDRESS_FUJI,
-    TOKEN_ADDRESS_FUJI
-} = process.env;
-
-
-//const sepoliaProvider = new ethers.JsonRpcProvider(NODE_URL_SEPOLIA, { chainId: 11155111, name: 'sepolia' });
-const amoyProvider = new ethers.JsonRpcProvider(NODE_URL_AMOY, { chainId: 80002, name: 'amoy' });
-const fujiProvider = new ethers.JsonRpcProvider(NODE_URL_FUJI, { chainId: 43113, name: 'fuji' });
-
-
-//const sepoliaWallet = new ethers.Wallet(SEPOLIA_PRIVATE_KEY01, sepoliaProvider);
-const amoyWallet = new ethers.Wallet(AMOY_PRIVATE_KEY01, amoyProvider);
-const fujiWallet = new ethers.Wallet(FUJI_PRIVATE_KEY01, fujiProvider);
+const erc20Abi = [
+    "function approve(address spender, uint256 amount) public returns (bool)",
+    "function allowance(address owner, address spender) public view returns (uint256)",
+    "function balanceOf(address account) public view returns (uint256)"
+];
 
 async function main() {
-    
-   // const sepoliaTokenContract = new ethers.Contract(TOKEN_ADDRESS_SEPOLIA, TokenABI.abi, sepoliaWallet);
-   // const sepoliaNotaryContract = new ethers.Contract(NOTARY_ADDRESS_SEPOLIA, NotaryABI.abi, sepoliaWallet);
-    
-    const amoyTokenContract = new ethers.Contract(TOKEN_ADDRESS_AMOY, TokenABI.abi, amoyWallet);
-    const amoyNotaryContract = new ethers.Contract(NOTARY_ADDRESS_AMOY, NotaryABI.abi, amoyWallet);
+    const {
+        NODE_URL_FUJI, NODE_URL_AMOY,
+        FUJI_PRIVATE_KEY01, AMOY_PRIVATE_KEY01,
+        NOTARY_ADDRESS_FUJI, NOTARY_ADDRESS_AMOY,
+        LINK_ADDRESS_FUJI, LINK_ADDRESS_AMOY
+    } = process.env;
 
-    const fujiTokenContract = new ethers.Contract(TOKEN_ADDRESS_FUJI, TokenABI.abi, fujiWallet);
-    const fujiNotaryContract = new ethers.Contract(NOTARY_ADDRESS_FUJI, NotaryABI.abi, fujiWallet);
-    
-    const amount = ethers.parseEther('100');
-    
-    // --- Operações Sepolia ---
-  /*  console.log(`\n--- Operações Sepolia (Stake) ---`);
-    console.log(`Aprovando ${ethers.formatEther(amount)} tokens na Sepolia para o contrato Notary (${NOTARY_ADDRESS_SEPOLIA})...`);
-    const approveSepoliaTx = await sepoliaTokenContract.connect(sepoliaWallet).approve(NOTARY_ADDRESS_SEPOLIA, amount);
-    await approveSepoliaTx.wait(); 
-    console.log(`Tokens aprovados na Sepolia. Transação: ${approveSepoliaTx.hash}`);
+    const fujiProvider = new ethers.JsonRpcProvider(NODE_URL_FUJI);
+    const amoyProvider = new ethers.JsonRpcProvider(NODE_URL_AMOY);
+    const fujiWallet = new ethers.Wallet(FUJI_PRIVATE_KEY01, fujiProvider);
+    const amoyWallet = new ethers.Wallet(AMOY_PRIVATE_KEY01, amoyProvider);
 
-    console.log(`Realizando stake de ${ethers.formatEther(amount)} tokens na Sepolia...`);
-    // ALTERAÇÃO AQUI: Passando TOKEN_ADDRESS_SEPOLIA como primeiro parâmetro
-  /*  const stakeSepoliaTx = await sepoliaNotaryContract.connect(sepoliaWallet).stake(TOKEN_ADDRESS_SEPOLIA, amount, {
-        gasLimit: 1000000, 
-        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
-        maxFeePerGas: ethers.parseUnits('50', 'gwei')          
-    });
-    await stakeSepoliaTx.wait();
-    console.log(`Stake realizado na Sepolia. Transação: ${stakeSepoliaTx.hash}`);
-*/
+    const NotaryABI = require("../artifacts/contracts/Notary.sol/Notary.json").abi;
 
-    // --- Operações Amoy ---
-    console.log(`\n--- Operações Amoy (Stake) ---`);
-    console.log(`Aprovando ${ethers.formatEther(amount)} tokens na Amoy para o contrato Notary (${NOTARY_ADDRESS_AMOY})...`);
-    const approveAmoyTx = await amoyTokenContract.connect(amoyWallet).approve(NOTARY_ADDRESS_AMOY, amount, {
-        gasLimit: 1000000, 
-        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
-        maxFeePerGas: ethers.parseUnits('50', 'gwei')          
-    });
-    await approveAmoyTx.wait();
-    console.log(`Tokens aprovados na Amoy. Transação: ${approveAmoyTx.hash}`);
+    // Contratos Fuji
+    const fujiLink = new ethers.Contract(LINK_ADDRESS_FUJI, erc20Abi, fujiWallet);
+    const fujiNotary = new ethers.Contract(NOTARY_ADDRESS_FUJI, NotaryABI, fujiWallet);
 
-    console.log(`Realizando stake de ${ethers.formatEther(amount)} tokens na Amoy...`);
-    
-    const stakeAmoyTx = await amoyNotaryContract.connect(amoyWallet).stake(TOKEN_ADDRESS_AMOY, amount, {
-        gasLimit: 1000000, 
-        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
-        maxFeePerGas: ethers.parseUnits('50', 'gwei')          
-    });
-    await stakeAmoyTx.wait();
-    console.log(`Stake realizado na Amoy. Transação: ${stakeAmoyTx.hash}`);
+    // Contratos Amoy
+    const amoyLink = new ethers.Contract(LINK_ADDRESS_AMOY, erc20Abi, amoyWallet);
+    const amoyNotary = new ethers.Contract(NOTARY_ADDRESS_AMOY, NotaryABI, amoyWallet);
 
+    const stakeAmount = ethers.parseUnits("1.0", 18); // stake de 1 LINK
+    const txLog = [];
 
-    // --- Operações Fuji ---
-    console.log(`\n--- Operações Fuji (Stake) ---`);
-    console.log(`Aprovando ${ethers.formatEther(amount)} tokens na Fuji para o contrato Notary (${NOTARY_ADDRESS_FUJI})...`);
-    const approveFujiTx = await fujiTokenContract.connect(fujiWallet).approve(NOTARY_ADDRESS_FUJI, amount, {
-        gasLimit: 1000000, 
-        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
-        maxFeePerGas: ethers.parseUnits('50', 'gwei')          
-    });
-    await approveFujiTx.wait();
-    console.log(`Tokens aprovados na Fuji. Transação: ${approveFujiTx.hash}`);
+    console.log("\n--- Operações Amoy (Stake) ---");
+    console.log(`Aprovando 1 LINK na Amoy para o contrato Notary (${NOTARY_ADDRESS_AMOY})...`);
+    let tx = await amoyLink.approve(NOTARY_ADDRESS_AMOY, stakeAmount);
+    let receipt = await tx.wait();
+    txLog.push({ network: "Amoy", operation: "approve", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
 
-    console.log(`Realizando stake de ${ethers.formatEther(amount)} tokens na Fuji...`);
-    
-    const stakeFujiTx = await fujiNotaryContract.connect(fujiWallet).stake(TOKEN_ADDRESS_FUJI, amount, {
-        gasLimit: 1000000, 
-        maxPriorityFeePerGas: ethers.parseUnits('25', 'gwei'), 
-        maxFeePerGas: ethers.parseUnits('50', 'gwei')          
-    });
-    await stakeFujiTx.wait();
-    console.log(`Stake realizado na Fuji. Transação: ${stakeFujiTx.hash}`);
+    console.log("Realizando stake de 1 LINK na Amoy...");
+    tx = await amoyNotary.stake(LINK_ADDRESS_AMOY, stakeAmount);
+    receipt = await tx.wait();
+    txLog.push({ network: "Amoy", operation: "stake", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
 
-    console.log("\nProcesso de stake concluído em todas as redes!");
+    console.log("\n--- Operações Fuji (Stake) ---");
+    console.log(`Aprovando 1 LINK na Fuji para o contrato Notary (${NOTARY_ADDRESS_FUJI})...`);
+    tx = await fujiLink.approve(NOTARY_ADDRESS_FUJI, stakeAmount);
+    receipt = await tx.wait();
+    txLog.push({ network: "Fuji", operation: "approve", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+
+    console.log("Realizando stake de 1 LINK na Fuji...");
+    tx = await fujiNotary.stake(LINK_ADDRESS_FUJI, stakeAmount);
+    receipt = await tx.wait();
+    txLog.push({ network: "Fuji", operation: "stake", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+
+    console.log("\n--- Resumo de gás ---");
+    console.table(txLog);
 }
 
-main()
-    .then(() => process.exit(0))
-    .catch(error => {
-        console.error("Ocorreu um erro durante a execução do script:");
-        console.error(error);
-        process.exit(1);
-    });
+main().catch(console.error);

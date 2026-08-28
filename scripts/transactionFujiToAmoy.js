@@ -1,87 +1,69 @@
 require("dotenv").config();
-const { ethers } = require("hardhat"); 
+const { ethers } = require("hardhat");
 
-const NotaryABI = require("../artifacts/contracts/Notary.sol/Notary.json");
-const TokenABI = require("../artifacts/contracts/Token.sol/Token.json");
-
-const {
-    NODE_URL_FUJI,
-    NODE_URL_AMOY,
-    FUJI_PRIVATE_KEY01, 
-    AMOY_PRIVATE_KEY01,
-    NOTARY_ADDRESS_FUJI,
-    TOKEN_ADDRESS_FUJI,
-    NOTARY_ADDRESS_AMOY,
-    TOKEN_ADDRESS_AMOY
-} = process.env;
+const erc20Abi = [
+    "function approve(address spender, uint256 amount) public returns (bool)",
+    "function balanceOf(address account) public view returns (uint256)"
+];
 
 async function main() {
-    const tokenAddressFuji = TOKEN_ADDRESS_FUJI;
-    const notaryAddressFuji = NOTARY_ADDRESS_FUJI;
+    const {
+        NODE_URL_FUJI, NODE_URL_AMOY,
+        FUJI_PRIVATE_KEY01, AMOY_PRIVATE_KEY01,
+        NOTARY_ADDRESS_FUJI, NOTARY_ADDRESS_AMOY,
+        LINK_ADDRESS_FUJI, LINK_ADDRESS_AMOY
+    } = process.env;
+
+    const fujiProvider = new ethers.JsonRpcProvider(NODE_URL_FUJI);
+    const amoyProvider = new ethers.JsonRpcProvider(NODE_URL_AMOY);
+
+    const userWalletFuji = new ethers.Wallet(FUJI_PRIVATE_KEY01, fujiProvider);
+    const nodeWalletAmoy = new ethers.Wallet(AMOY_PRIVATE_KEY01, amoyProvider);
+
+    const NotaryABI = require("../artifacts/contracts/Notary.sol/Notary.json").abi;
+
+    const fujiLink = new ethers.Contract(LINK_ADDRESS_FUJI, erc20Abi, userWalletFuji);
+    const amoyLink = new ethers.Contract(LINK_ADDRESS_AMOY, erc20Abi, nodeWalletAmoy);
     
-    const tokenAddressAmoy = TOKEN_ADDRESS_AMOY;
-    const notaryAddressAmoy = NOTARY_ADDRESS_AMOY; 
+    const fujiNotary = new ethers.Contract(NOTARY_ADDRESS_FUJI, NotaryABI, userWalletFuji);
+    const amoyNotary = new ethers.Contract(NOTARY_ADDRESS_AMOY, NotaryABI, nodeWalletAmoy);
 
-    const fujiProvider = new ethers.JsonRpcProvider(
-        NODE_URL_FUJI,
-        { chainId: 43113, name: 'fuji' } 
-    );
-    const amoyProvider = new ethers.JsonRpcProvider(
-        NODE_URL_AMOY,
-        { chainId: 80002, name: 'amoy' } 
-    );
+    const amountToSend = ethers.parseUnits("0.1", 18); 
+    const receiverAddress = userWalletFuji.address; 
+    const txLog = [];
 
-    const fujiWallet = new ethers.Wallet(FUJI_PRIVATE_KEY01, fujiProvider);
-    const amoyWallet = new ethers.Wallet(AMOY_PRIVATE_KEY01, amoyProvider);
+    console.log("\n--- Iniciando Transação Cross-Chain (LINK): Fuji -> Amoy ---");
+    console.log(`Usuário enviando: 0.1 LINK`);
 
-    console.log(`\n--- Transação Fuji para Amoy ---`);
-    console.log(`Carteira Fuji (Depositante): ${fujiWallet.address}`);
-    console.log(`Carteira Amoy (Recebedor/Executor): ${amoyWallet.address}`);
+    console.log("\n[1/3] Aprovando LINK na Fuji para o Notary...");
+    let tx = await fujiLink.approve(NOTARY_ADDRESS_FUJI, amountToSend);
+    let receipt = await tx.wait();
+    txLog.push({ step: "approve (Fuji)", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+    console.log(`Aprovação concluída! Tx: ${receipt.hash}`);
 
-    const fujiTokenContract = new ethers.Contract(tokenAddressFuji, TokenABI.abi, fujiWallet);
-    const fujiNotaryContract = new ethers.Contract(notaryAddressFuji, NotaryABI.abi, fujiWallet);
-    const amoyTokenContract = new ethers.Contract(tokenAddressAmoy, TokenABI.abi, amoyWallet);
-    const amoyNotaryContract = new ethers.Contract(notaryAddressAmoy, NotaryABI.abi, amoyWallet);
-
-    const amount = ethers.parseEther('1'); // 1 token para a transação
+    console.log("\n[2/3] Depositando LINK no Notary da Fuji...");
+    tx = await fujiNotary.deposit(LINK_ADDRESS_FUJI, amountToSend, "Amoy", receiverAddress);
+    receipt = await tx.wait();
+    txLog.push({ step: "deposit (Fuji)", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
     
-    // Endereço recebedor
-    const amoyRecipientAddress = amoyWallet.address; 
+    const depositID = 2;
+    console.log(`Depósito realizado com sucesso! ID do Depósito gerado: ${depositID}`);
 
-    // --- Aprovação na Fuji ---
-    console.log(`\n--- Fuji (Aprovação e Depósito) ---`);
-    console.log(`Aprovando ${ethers.formatEther(amount)} tokens na Fuji para o contrato Notary (${notaryAddressFuji})...`);
-
-    const approveFujiTx = await fujiTokenContract.approve(notaryAddressFuji, amount);
-    await approveFujiTx.wait(); 
-    console.log(`Tokens aprovados na Fuji. Transação: ${approveFujiTx.hash}`);
-
-    // --- Depósito na Fuji ---
-    console.log(`Depositando ${ethers.formatEther(amount)} tokens no Notary da Fuji para ${amoyRecipientAddress} na Amoy...`);
- 
-    const depositFujiTx = await fujiNotaryContract.deposit(tokenAddressFuji, amount, amoyRecipientAddress);
-    await depositFujiTx.wait(); 
-    console.log(`Depósito realizado na Fuji. Transação: ${depositFujiTx.hash}`);
+    console.log("\n[3/3] Nó validador executando a ponte na Amoy...");
+    const saldoAntes = await amoyLink.balanceOf(receiverAddress);
     
-    const lastDepositIdFuji = await fujiNotaryContract.lastDepositID();
-    console.log(`Último ID de Depósito na Fuji: ${lastDepositIdFuji.toString()}`); 
-
-    const depositIdToBridge = lastDepositIdFuji; 
+tx = await amoyNotary.executeBridge(43113, depositID, LINK_ADDRESS_AMOY, receiverAddress, amountToSend);
+    receipt = await tx.wait();
+    txLog.push({ step: "executeBridge (Amoy)", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
     
-    console.log(`\n--- Amoy (Executar Ponte) ---`);
-    console.log(`Executando ponte na Amoy com ID de Depósito ${depositIdToBridge.toString()} para ${amoyRecipientAddress}...`);
+    const saldoDepois = await amoyLink.balanceOf(receiverAddress);
+    
+    console.log(`Execução concluída! Tx: ${receipt.hash}`);
+    console.log(`Saldo na Amoy ANTES: ${ethers.formatUnits(saldoAntes, 18)} LINK`);
+    console.log(`Saldo na Amoy DEPOIS: ${ethers.formatUnits(saldoDepois, 18)} LINK`);
 
-    const executeBridgeAmoyTx = await amoyNotaryContract.executeBridge(depositIdToBridge, tokenAddressAmoy, amoyRecipientAddress, amount);
-    await executeBridgeAmoyTx.wait(); 
-    console.log(`Ponte executada na Amoy. Transação: ${executeBridgeAmoyTx.hash}`);
-    const finalBalanceAmoy = await amoyTokenContract.balanceOf(amoyRecipientAddress);
-    console.log(`Balanço final de tokens em ${amoyRecipientAddress} na Amoy: ${ethers.formatEther(finalBalanceAmoy)} tokens`);
+    console.log("\n--- Resumo de gás (fluxo cross-chain completo) ---");
+    console.table(txLog);
 }
 
-main()
-    .then(() => process.exit(0))
-    .catch(error => {
-        console.error("Um erro ocorreu durante a execução do script:");
-        console.error(error);
-        process.exit(1);
-    });
+main().catch(console.error);
