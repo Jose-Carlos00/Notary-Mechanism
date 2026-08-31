@@ -18,7 +18,9 @@ async function main() {
         USDC_ADDRESS_POLYGON, USDC_ADDRESS_AVALANCHE
     } = process.env;
 
-    const polygonProvider = new ethers.JsonRpcProvider(NODE_URL_POLYGON);
+    
+    const networkPolygon = new ethers.Network("polygon", 137);
+    const polygonProvider = new ethers.JsonRpcProvider(NODE_URL_POLYGON, networkPolygon);
     const avalancheProvider = new ethers.JsonRpcProvider(NODE_URL_AVALANCHE);
 
     const userWalletPolygon = new ethers.Wallet(POLYGON_PRIVATE_KEY01, polygonProvider);
@@ -45,13 +47,46 @@ async function main() {
     console.log("\n[1/3] Aprovando USDC na Polygon para o Notary...");
     let tx = await polygonUsdc.approve(NOTARY_ADDRESS_POLYGON, amountToSend);
     let receipt = await tx.wait();
-    txLog.push({ step: "approve (Polygon)", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+
+    const approvePolygonFee = receipt.gasUsed * receipt.gasPrice;
+
+    txLog.push({
+        step: "approve (Polygon)",
+        gasUsed: receipt.gasUsed.toString(),
+        gasPriceWei: receipt.gasPrice.toString(),
+        gasPriceGwei: ethers.formatUnits(receipt.gasPrice, "gwei"),
+        transactionFeeWei: approvePolygonFee.toString(),
+        transactionFee: ethers.formatEther(approvePolygonFee),
+        nativeToken: "POL",
+        txHash: receipt.hash
+    });
+
     console.log(`Aprovação concluída! Tx: ${receipt.hash}`);
+    console.log(`Gas Used: ${receipt.gasUsed.toString()}`);
+    console.log(`Gas Price: ${ethers.formatUnits(receipt.gasPrice, "gwei")} Gwei`);
+    console.log(`Transaction Fee: ${ethers.formatEther(approvePolygonFee)} POL`);
 
     console.log("\n[2/3] Depositando USDC no Notary da Polygon...");
-    tx = await polygonNotary.deposit(USDC_ADDRESS_POLYGON, amountToSend, "Avalanche", receiverAddress);
+    tx = await polygonNotary.deposit(
+        USDC_ADDRESS_POLYGON,
+        amountToSend,
+        "Avalanche",
+        receiverAddress
+    );
     receipt = await tx.wait();
-    txLog.push({ step: "deposit (Polygon)", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+
+    const depositPolygonFee = receipt.gasUsed * receipt.gasPrice;
+
+    txLog.push({
+        step: "deposit (Polygon)",
+        gasUsed: receipt.gasUsed.toString(),
+        gasPriceWei: receipt.gasPrice.toString(),
+        gasPriceGwei: ethers.formatUnits(receipt.gasPrice, "gwei"),
+        transactionFeeWei: depositPolygonFee.toString(),
+        transactionFee: ethers.formatEther(depositPolygonFee),
+        nativeToken: "POL",
+        txHash: receipt.hash
+    });
 
     const depositEvent = receipt.logs
         .map(log => {
@@ -62,17 +97,42 @@ async function main() {
 
     const depositID = depositEvent.args.depositID;
     console.log(`Depósito realizado com sucesso! ID do Depósito gerado: ${depositID.toString()}`);
+    console.log(`Gas Used: ${receipt.gasUsed.toString()}`);
+    console.log(`Gas Price: ${ethers.formatUnits(receipt.gasPrice, "gwei")} Gwei`);
+    console.log(`Transaction Fee: ${ethers.formatEther(depositPolygonFee)} POL`);
 
     console.log("\n[3/3] Nó validador executando a ponte na Avalanche...");
     const saldoAntes = await avalancheUsdc.balanceOf(receiverAddress);
 
-    tx = await avalancheNotary.executeBridge(POLYGON_CHAIN_ID, depositID, USDC_ADDRESS_AVALANCHE, receiverAddress, amountToSend);
+    tx = await avalancheNotary.executeBridge(
+        POLYGON_CHAIN_ID,
+        depositID,
+        USDC_ADDRESS_AVALANCHE,
+        receiverAddress,
+        amountToSend
+    );
     receipt = await tx.wait();
-    txLog.push({ step: "executeBridge (Avalanche)", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+
+    const executeAvalancheFee = receipt.gasUsed * receipt.gasPrice;
+
+    txLog.push({
+        step: "executeBridge (Avalanche)",
+        gasUsed: receipt.gasUsed.toString(),
+        gasPriceWei: receipt.gasPrice.toString(),
+        gasPriceGwei: ethers.formatUnits(receipt.gasPrice, "gwei"),
+        transactionFeeWei: executeAvalancheFee.toString(),
+        transactionFee: ethers.formatEther(executeAvalancheFee),
+        nativeToken: "AVAX",
+        txHash: receipt.hash
+    });
 
     const saldoDepois = await avalancheUsdc.balanceOf(receiverAddress);
 
     console.log(`Execução concluída! Tx: ${receipt.hash}`);
+    console.log(`Gas Used: ${receipt.gasUsed.toString()}`);
+    console.log(`Gas Price: ${ethers.formatUnits(receipt.gasPrice, "gwei")} Gwei`);
+    console.log(`Transaction Fee: ${ethers.formatEther(executeAvalancheFee)} AVAX`);
+
     console.log(`Saldo na Avalanche ANTES: ${ethers.formatUnits(saldoAntes, decimalsAvalanche)} USDC`);
     console.log(`Saldo na Avalanche DEPOIS: ${ethers.formatUnits(saldoDepois, decimalsAvalanche)} USDC`);
 
@@ -82,8 +142,14 @@ async function main() {
     const stepsForLog = txLog.map(log => ({
         step: log.step,
         gasUsed: log.gasUsed,
+        gasPriceWei: log.gasPriceWei,
+        gasPriceGwei: log.gasPriceGwei,
+        transactionFeeWei: log.transactionFeeWei,
+        transactionFee: log.transactionFee,
+        nativeToken: log.nativeToken,
         txHash: log.txHash
     }));
+
     logTransaction("MAINNET", "Polygon -> Avalanche", stepsForLog);
 }
 

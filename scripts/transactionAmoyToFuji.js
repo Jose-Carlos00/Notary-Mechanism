@@ -45,13 +45,41 @@ async function main() {
     console.log("\n[1/3] Aprovando LINK na Amoy para o Notary...");
     let tx = await amoyLink.approve(NOTARY_ADDRESS_AMOY, amountToSend);
     let receipt = await tx.wait();
-    txLog.push({ step: "approve (Amoy)", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+
+    const approveAmoyFee = receipt.gasUsed * receipt.gasPrice;
+
+    txLog.push({
+        step: "approve (Amoy)",
+        gasUsed: receipt.gasUsed.toString(),
+        gasPriceWei: receipt.gasPrice.toString(),
+        gasPriceGwei: ethers.formatUnits(receipt.gasPrice, "gwei"),
+        transactionFeeWei: approveAmoyFee.toString(),
+        transactionFee: ethers.formatEther(approveAmoyFee),
+        nativeToken: "POL",
+        txHash: receipt.hash
+    });
+
     console.log(`Aprovação concluída! Tx: ${receipt.hash}`);
+    console.log(`Gas Used: ${receipt.gasUsed.toString()}`);
+    console.log(`Gas Price: ${ethers.formatUnits(receipt.gasPrice, "gwei")} Gwei`);
+    console.log(`Transaction Fee: ${ethers.formatEther(approveAmoyFee)} POL`);
 
     console.log("\n[2/3] Depositando LINK no Notary da Amoy...");
     tx = await amoyNotary.deposit(LINK_ADDRESS_AMOY, amountToSend, "Fuji", receiverAddress);
     receipt = await tx.wait();
-    txLog.push({ step: "deposit (Amoy)", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+
+    const depositAmoyFee = receipt.gasUsed * receipt.gasPrice;
+
+    txLog.push({
+        step: "deposit (Amoy)",
+        gasUsed: receipt.gasUsed.toString(),
+        gasPriceWei: receipt.gasPrice.toString(),
+        gasPriceGwei: ethers.formatUnits(receipt.gasPrice, "gwei"),
+        transactionFeeWei: depositAmoyFee.toString(),
+        transactionFee: ethers.formatEther(depositAmoyFee),
+        nativeToken: "POL",
+        txHash: receipt.hash
+    });
 
     const depositEvent = receipt.logs
         .map(log => {
@@ -62,16 +90,42 @@ async function main() {
 
     const depositID = depositEvent.args.depositID;
     console.log(`Depósito realizado com sucesso! ID do Depósito gerado: ${depositID.toString()}`);
+    console.log(`Gas Used: ${receipt.gasUsed.toString()}`);
+    console.log(`Gas Price: ${ethers.formatUnits(receipt.gasPrice, "gwei")} Gwei`);
+    console.log(`Transaction Fee: ${ethers.formatEther(depositAmoyFee)} POL`);
 
     console.log("\n[3/3] Nó validador executando a ponte na Fuji...");
     const saldoAntes = await fujiLink.balanceOf(receiverAddress);
-    tx = await fujiNotary.executeBridge(AMOY_CHAIN_ID, depositID, LINK_ADDRESS_FUJI, receiverAddress, amountToSend);
+
+    tx = await fujiNotary.executeBridge(
+        AMOY_CHAIN_ID,
+        depositID,
+        LINK_ADDRESS_FUJI,
+        receiverAddress,
+        amountToSend
+    );
+
     receipt = await tx.wait();
-    txLog.push({ step: "executeBridge (Fuji)", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+
+    const executeFujiFee = receipt.gasUsed * receipt.gasPrice;
+
+    txLog.push({
+        step: "executeBridge (Fuji)",
+        gasUsed: receipt.gasUsed.toString(),
+        gasPriceWei: receipt.gasPrice.toString(),
+        gasPriceGwei: ethers.formatUnits(receipt.gasPrice, "gwei"),
+        transactionFeeWei: executeFujiFee.toString(),
+        transactionFee: ethers.formatEther(executeFujiFee),
+        nativeToken: "AVAX",
+        txHash: receipt.hash
+    });
 
     const saldoDepois = await fujiLink.balanceOf(receiverAddress);
 
     console.log(`Execução concluída! Tx: ${receipt.hash}`);
+    console.log(`Gas Used: ${receipt.gasUsed.toString()}`);
+    console.log(`Gas Price: ${ethers.formatUnits(receipt.gasPrice, "gwei")} Gwei`);
+    console.log(`Transaction Fee: ${ethers.formatEther(executeFujiFee)} AVAX`);
     console.log(`Saldo na Fuji ANTES: ${ethers.formatUnits(saldoAntes, tokenDecimalsFuji)} LINK`);
     console.log(`Saldo na Fuji DEPOIS: ${ethers.formatUnits(saldoDepois, tokenDecimalsFuji)} LINK`);
 
@@ -81,8 +135,14 @@ async function main() {
     const stepsForLog = txLog.map(log => ({
         step: log.step,
         gasUsed: log.gasUsed,
+        gasPriceWei: log.gasPriceWei,
+        gasPriceGwei: log.gasPriceGwei,
+        transactionFeeWei: log.transactionFeeWei,
+        transactionFee: log.transactionFee,
+        nativeToken: log.nativeToken,
         txHash: log.txHash
     }));
+
     logTransaction("TESTNET", "Amoy -> Fuji", stepsForLog);
 }
 
