@@ -476,6 +476,114 @@ Portanto, para aumentar o valor da transferência, pode ser necessário aumentar
 
 Alterar `stakeAmount` ou `amountToSend` nos scripts **não altera o contrato implantado**. Essas alterações apenas modificam os valores utilizados pelas próximas execuções dos scripts.
 
-Já alterações nas constantes do `Notary.sol`, como `BRIDGE_FEE_PERCENTAGE`, `MINIMUM_STAKE_UNITS` ou `LOCK_PERIOD`, exigem nova compilação e um novo deploy do contrato nas redes em que a alteração deverá ser aplicada.
+---
+
+---
+
+## Variáveis de Ambiente da Mainnet
+
+Adicione as seguintes variáveis ao arquivo `.env`:
+
+```dotenv
+# URLs dos Nós RPC da Mainnet
+NODE_URL_POLYGON="https://polygon-rpc.com"
+NODE_URL_AVALANCHE="https://api.avax.network/ext/bc/C/rpc"
+
+# Chaves Privadas das Contas da Mainnet
+# Essas contas precisam possuir POL/MATIC e AVAX reais
+# para pagamento das taxas de transação.
+
+POLYGON_PRIVATE_KEY01=""
+AVALANCHE_PRIVATE_KEY01=""
+
+# Endereços dos contratos Notary na Mainnet
+# Preencher após o deploy.
+
+NOTARY_ADDRESS_POLYGON=""
+NOTARY_ADDRESS_AVALANCHE=""
+
+# Endereços do token ERC-20 utilizado na Mainnet.
+# Pode ser USDC ou outro token ERC-20 compatível.
+
+USDC_ADDRESS_POLYGON=""
+USDC_ADDRESS_AVALANCHE=""
+```
+
+Os nomes `USDC_ADDRESS_POLYGON` e `USDC_ADDRESS_AVALANCHE` são utilizados como exemplo. O `Notary.sol` não exige especificamente USDC e pode trabalhar com outro token ERC-20, desde que o endereço correspondente seja utilizado nas operações.
+
+## Deploy na Mainnet
+
+Os contratos devem ser implantados nas redes principais antes de realizar as operações.
+
+### Deploy na Polygon Mainnet
+
+```bash
+npx hardhat run scripts/deploy.js --network polygon
+```
+
+### Deploy na Avalanche C-Chain
+
+```bash
+npx hardhat run scripts/deploy.js --network avalanche
+```
+
+Após o deploy, atualize o `.env` com os endereços gerados:
+
+```dotenv
+NOTARY_ADDRESS_POLYGON="0x..."
+NOTARY_ADDRESS_AVALANCHE="0x..."
+```
+
+
+## Executando o Stake na Mainnet
+
+```text
+scripts/stakeMainnet.js
+```
+
+a execução poderá ser realizada separadamente em cada rede.
+
+### Stake na Polygon
+
+```bash
+npx hardhat run scripts/stakeMainnet.js --network polygon
+```
+
+### Stake na Avalanche
+
+```bash
+npx hardhat run scripts/stakeMainnet.js --network avalanche
+```
+
+
+## Transferência Avalanche → Polygon (Mainnet)
+
+O fluxo de transferência da Avalanche para a Polygon poderá ser implementado pelo script:
+
+```text
+scripts/transactionAvalancheToPolygon.js
+```
+
+Execute:
+
+```bash
+npx hardhat run scripts/transactionAvalancheToPolygon.js
+```
+
+
+## Transferência Polygon → Avalanche (Mainnet)
+
+O fluxo inverso poderá ser implementado pelo script:
+
+```text
+scripts/transactionPolygonToAvalanche.js
+```
+
+Execute:
+
+```bash
+npx hardhat run scripts/transactionPolygonToAvalanche.js
+```
+
 
 
