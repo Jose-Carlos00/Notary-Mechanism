@@ -5,48 +5,53 @@ require("dotenv").config();
 async function main() {
     const networkName = hre.network.name;
     const chainIdDec = hre.network.config.chainId;
-
     console.log(`\n--- Deploying on ${networkName} (ChainId: ${chainIdDec}) ---`);
 
     let holders;
-    if (chainIdDec === 11155111) { // Sepolia
-        const wallet1 = new ethers.Wallet(process.env.SEPOLIA_PRIVATE_KEY01);
-        const wallet2 = new ethers.Wallet(process.env.SEPOLIA_PRIVATE_KEY02);
-        holders = [wallet1.address, wallet2.address];
-        console.log("Configuring holders for SEPOLIA deployment.");
-    } else if (chainIdDec === 80002) { // Amoy
-        const wallet1 = new ethers.Wallet(process.env.AMOY_PRIVATE_KEY01);
-        const wallet2 = new ethers.Wallet(process.env.AMOY_PRIVATE_KEY02);
-        holders = [wallet1.address, wallet2.address];
-        console.log("Configuring holders for AMOY deployment.");
-    } else if (chainIdDec === 43113) { // Fuji (Avalanche Testnet)
-        const wallet1 = new ethers.Wallet(process.env.FUJI_PRIVATE_KEY01);
-        const wallet2 = new ethers.Wallet(process.env.FUJI_PRIVATE_KEY02);
-        holders = [wallet1.address, wallet2.address];
-        console.log("Configuring holders for FUJI deployment.");
+    let isMainnet = (chainIdDec === 137 || chainIdDec === 43114);
+    let existingTokenAddress;
+
+    if (chainIdDec === 11155111) {
+        holders = [new ethers.Wallet(process.env.SEPOLIA_PRIVATE_KEY01).address];
+    } else if (chainIdDec === 80002) {
+        holders = [new ethers.Wallet(process.env.AMOY_PRIVATE_KEY01).address];
+    } else if (chainIdDec === 43113) {
+        holders = [new ethers.Wallet(process.env.FUJI_PRIVATE_KEY01).address];
+    } else if (chainIdDec === 137) {
+        existingTokenAddress = process.env.USDC_ADDRESS_POLYGON;
+        console.log(`Configuring for POLYGON MAINNET. Skipping Token deployment (using native USDC).`);
+    } else if (chainIdDec === 43114) {
+        existingTokenAddress = process.env.USDC_ADDRESS_AVALANCHE;
+        console.log(`Configuring for AVALANCHE MAINNET. Skipping Token deployment (using native USDC).`);
     } else {
-        throw new Error("Unsupported network! Please use 'sepolia', 'amoy' or 'fuji'.");
+        throw new Error("Unsupported network!");
+    }
+
+    if (isMainnet && !existingTokenAddress) {
+        throw new Error(`Endereco do USDC nao definido no .env para ${networkName} (chainId ${chainIdDec}).`);
     }
 
     await hre.run('compile');
 
-    const tokenStartTime = Date.now();
-    const Token = await ethers.getContractFactory("Token");
-    const token = await Token.deploy("MyBridgeToken", "MBT", holders);
-    await token.waitForDeployment();
+    let tokenAddress = existingTokenAddress;
 
-    const tokenAddress = await token.getAddress();
-    const tokenDeploymentTx = token.deploymentTransaction();
-    const tokenReceipt = await tokenDeploymentTx.wait();
+    // Deploy do Token apenas se não for mainnet
+    if (!isMainnet) {
+        const Token = await ethers.getContractFactory("Token");
+        const token = await Token.deploy("MyBridgeToken", "MBT", holders);
+        await token.waitForDeployment();
 
-    console.log("\n-----------------------------------------");
-    console.log(`Token address: ${tokenAddress}`);
-    console.log(`Deployed by: ${tokenDeploymentTx.from}`);
-    console.log(`Gas Used: ${tokenReceipt.gasUsed.toString()}`);
-    console.log(`Token Deployment Time (nao comparavel entre chains): ${Date.now() - tokenStartTime} ms`);
-    console.log("-----------------------------------------");
+        tokenAddress = await token.getAddress();
+        const tokenDeploymentTx = token.deploymentTransaction();
+        const tokenReceipt = await tokenDeploymentTx.wait();
 
-    const notaryStartTime = Date.now();
+        console.log(`Token deployed at: ${tokenAddress}`);
+        console.log(`Gas Used: ${tokenReceipt.gasUsed.toString()}`);
+    } else {
+        console.log(`Using existing USDC at: ${tokenAddress}`);
+    }
+
+    // Deploy do Notary (Para todas as redes)
     const Notary = await ethers.getContractFactory("Notary");
     const notary = await Notary.deploy();
     await notary.waitForDeployment();
@@ -55,27 +60,14 @@ async function main() {
     const notaryDeploymentTx = notary.deploymentTransaction();
     const notaryReceipt = await notaryDeploymentTx.wait();
 
-    console.log("\n-----------------------------------------");
-    console.log(`Notary address: ${notaryAddress}`);
-    console.log(`Deployed by: ${notaryDeploymentTx.from}`);
+    console.log(`Notary deployed at: ${notaryAddress}`);
     console.log(`Gas Used: ${notaryReceipt.gasUsed.toString()}`);
-    console.log(`Notary Deployment Time (nao comparavel entre chains): ${Date.now() - notaryStartTime} ms`);
-    console.log("-----------------------------------------");
-
 
     console.log("\n===========================================");
     console.log(`RESUMO ${networkName.toUpperCase()} — copiar para o .env:`);
-    console.log(`TOKEN_ADDRESS_${networkName.toUpperCase()}=${tokenAddress}`);
+    if (!isMainnet) console.log(`TOKEN_ADDRESS_${networkName.toUpperCase()}=${tokenAddress}`);
     console.log(`NOTARY_ADDRESS_${networkName.toUpperCase()}=${notaryAddress}`);
     console.log("===========================================");
-
-    console.log("\nDeployment process finished successfully!");
 }
 
-main()
-    .then(() => process.exit(0))
-    .catch(error => {
-        console.error("An error occurred during deployment:");
-        console.error(error);
-        process.exit(1);
-    });
+main().catch(console.error);

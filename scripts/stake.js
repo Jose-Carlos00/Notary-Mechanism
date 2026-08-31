@@ -3,7 +3,8 @@ const { ethers } = require("hardhat");
 const erc20Abi = [
     "function approve(address spender, uint256 amount) public returns (bool)",
     "function allowance(address owner, address spender) public view returns (uint256)",
-    "function balanceOf(address account) public view returns (uint256)"
+    "function balanceOf(address account) public view returns (uint256)",
+    "function decimals() public view returns (uint8)"
 ];
 
 async function main() {
@@ -21,40 +22,41 @@ async function main() {
 
     const NotaryABI = require("../artifacts/contracts/Notary.sol/Notary.json").abi;
 
-    // Contratos Fuji
     const fujiLink = new ethers.Contract(LINK_ADDRESS_FUJI, erc20Abi, fujiWallet);
-    const fujiNotary = new ethers.Contract(NOTARY_ADDRESS_FUJI, NotaryABI, fujiWallet);
-
-    // Contratos Amoy
     const amoyLink = new ethers.Contract(LINK_ADDRESS_AMOY, erc20Abi, amoyWallet);
+    const fujiNotary = new ethers.Contract(NOTARY_ADDRESS_FUJI, NotaryABI, fujiWallet);
     const amoyNotary = new ethers.Contract(NOTARY_ADDRESS_AMOY, NotaryABI, amoyWallet);
 
-    const stakeAmount = ethers.parseUnits("1.0", 18); // stake de 1 LINK
     const txLog = [];
 
     console.log("\n--- Operações Amoy (Stake) ---");
-    console.log(`Aprovando 1 LINK na Amoy para o contrato Notary (${NOTARY_ADDRESS_AMOY})...`);
-    let tx = await amoyLink.approve(NOTARY_ADDRESS_AMOY, stakeAmount);
-    let receipt = await tx.wait();
-    txLog.push({ network: "Amoy", operation: "approve", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+    const amoyDecimals = await amoyLink.decimals();
+    const amoyStakeAmount = ethers.parseUnits("0.1", amoyDecimals);
 
-    console.log("Realizando stake de 1 LINK na Amoy...");
-    tx = await amoyNotary.stake(LINK_ADDRESS_AMOY, stakeAmount);
+    console.log(`Aprovando 0.1 Token na Amoy para o Notary...`);
+    let tx = await amoyLink.approve(NOTARY_ADDRESS_AMOY, amoyStakeAmount);
+    let receipt = await tx.wait();
+    txLog.push({ network: "Amoy", operation: "approve", gasUsed: receipt.gasUsed.toString() });
+
+    console.log("Realizando stake na Amoy...");
+    tx = await amoyNotary.stake(LINK_ADDRESS_AMOY, amoyStakeAmount);
     receipt = await tx.wait();
-    txLog.push({ network: "Amoy", operation: "stake", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+    txLog.push({ network: "Amoy", operation: "stake", gasUsed: receipt.gasUsed.toString() });
 
     console.log("\n--- Operações Fuji (Stake) ---");
-    console.log(`Aprovando 1 LINK na Fuji para o contrato Notary (${NOTARY_ADDRESS_FUJI})...`);
-    tx = await fujiLink.approve(NOTARY_ADDRESS_FUJI, stakeAmount);
-    receipt = await tx.wait();
-    txLog.push({ network: "Fuji", operation: "approve", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+    const fujiDecimals = await fujiLink.decimals();
+    const fujiStakeAmount = ethers.parseUnits("0.1", fujiDecimals);
 
-    console.log("Realizando stake de 1 LINK na Fuji...");
-    tx = await fujiNotary.stake(LINK_ADDRESS_FUJI, stakeAmount);
+    console.log(`Aprovando 0.1 Token na Fuji para o Notary...`);
+    tx = await fujiLink.approve(NOTARY_ADDRESS_FUJI, fujiStakeAmount);
     receipt = await tx.wait();
-    txLog.push({ network: "Fuji", operation: "stake", gasUsed: receipt.gasUsed.toString(), txHash: receipt.hash });
+    txLog.push({ network: "Fuji", operation: "approve", gasUsed: receipt.gasUsed.toString() });
 
-    console.log("\n--- Resumo de gás ---");
+    console.log("Realizando stake na Fuji...");
+    tx = await fujiNotary.stake(LINK_ADDRESS_FUJI, fujiStakeAmount);
+    receipt = await tx.wait();
+    txLog.push({ network: "Fuji", operation: "stake", gasUsed: receipt.gasUsed.toString() });
+
     console.table(txLog);
 }
 

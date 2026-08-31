@@ -1,9 +1,11 @@
 require("dotenv").config();
 const { ethers } = require("hardhat");
+const { logTransaction } = require("./utils/logger");
 
 const erc20Abi = [
     "function approve(address spender, uint256 amount) public returns (bool)",
-    "function balanceOf(address account) public view returns (uint256)"
+    "function balanceOf(address account) public view returns (uint256)",
+    "function decimals() public view returns (uint8)"
 ];
 
 const AMOY_CHAIN_ID = 80002;
@@ -30,12 +32,15 @@ async function main() {
     const amoyNotary = new ethers.Contract(NOTARY_ADDRESS_AMOY, NotaryABI, userWalletAmoy);
     const fujiNotary = new ethers.Contract(NOTARY_ADDRESS_FUJI, NotaryABI, nodeWalletFuji);
 
-    const amountToSend = ethers.parseUnits("0.1", 18); // Enviando 0.1
-    const receiverAddress = userWalletAmoy.address; 
+    const tokenDecimalsAmoy = await amoyLink.decimals();
+    const tokenDecimalsFuji = await fujiLink.decimals();
+
+    const amountToSend = ethers.parseUnits("0.001", tokenDecimalsAmoy); 
+    const receiverAddress = userWalletAmoy.address;
     const txLog = [];
 
     console.log("\n--- Iniciando Transação Cross-Chain (LINK): Amoy -> Fuji ---");
-    console.log(`Usuário enviando: 0.1 LINK`);
+    console.log(`Usuário enviando: 0.001 LINK`);
 
     console.log("\n[1/3] Aprovando LINK na Amoy para o Notary...");
     let tx = await amoyLink.approve(NOTARY_ADDRESS_AMOY, amountToSend);
@@ -67,11 +72,18 @@ async function main() {
     const saldoDepois = await fujiLink.balanceOf(receiverAddress);
 
     console.log(`Execução concluída! Tx: ${receipt.hash}`);
-    console.log(`Saldo na Fuji ANTES: ${ethers.formatUnits(saldoAntes, 18)} LINK`);
-    console.log(`Saldo na Fuji DEPOIS: ${ethers.formatUnits(saldoDepois, 18)} LINK`);
+    console.log(`Saldo na Fuji ANTES: ${ethers.formatUnits(saldoAntes, tokenDecimalsFuji)} LINK`);
+    console.log(`Saldo na Fuji DEPOIS: ${ethers.formatUnits(saldoDepois, tokenDecimalsFuji)} LINK`);
 
     console.log("\n--- Resumo de gás (fluxo cross-chain completo) ---");
     console.table(txLog);
+
+    const stepsForLog = txLog.map(log => ({
+        step: log.step,
+        gasUsed: log.gasUsed,
+        txHash: log.txHash
+    }));
+    logTransaction("TESTNET", "Amoy -> Fuji", stepsForLog);
 }
 
 main().catch(console.error);

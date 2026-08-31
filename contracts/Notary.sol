@@ -14,26 +14,27 @@ error Locked();
 contract Notary {
     using SafeERC20 for IERC20;
 
-    uint256 public constant LOCK_PERIOD = 60; 
-    uint256 public constant MINIMUM_STAKE_UNITS = 1; 
+    uint256 public constant LOCK_PERIOD = 60;
+    uint256 public constant MINIMUM_STAKE_BASIS_POINTS = 100; // 100 = 1% de 1 token = 0.01
+    uint256 public constant BASIS_POINTS_DIVISOR = 10000;
     uint256 public constant BRIDGE_FEE_PERCENTAGE = 5;
     uint256 public constant HUNDRED = 100;
 
     uint256 public lastDepositID;
 
-    mapping(address => uint256) public totalStaked;                          
-    mapping(address => mapping(address => uint256)) public stakes;           
-    mapping(address => mapping(address => uint256)) public blacklistVotes;   
-    mapping(address => uint256) public lockedUntil;                          
+    mapping(address => uint256) public totalStaked;
+    mapping(address => mapping(address => uint256)) public stakes;
+    mapping(address => mapping(address => uint256)) public blacklistVotes;
+    mapping(address => uint256) public lockedUntil;
 
     // Proteção contra colisão de IDs de redes diferentes
-    mapping(bytes32 => bool) public executedDeposits;                        
+    mapping(bytes32 => bool) public executedDeposits;
 
     event Deposit(
         uint256 indexed depositID,
         address indexed token,
         address indexed sender,
-        string destinationChain, 
+        string destinationChain,
         address receiver,
         uint256 amount
     );
@@ -59,9 +60,8 @@ contract Notary {
     constructor() {}
 
     function minimumStakeFor(address token) public view returns (uint256) {
-        return MINIMUM_STAKE_UNITS * (10 ** IERC20Metadata(token).decimals());
+        return (10 ** IERC20Metadata(token).decimals() * MINIMUM_STAKE_BASIS_POINTS) / BASIS_POINTS_DIVISOR;
     }
-
 
     function deposit(address token, uint256 amount, string memory destinationChain, address receiver) external {
         IERC20(token).safeTransferFrom(msg.sender, address(this), amount);
