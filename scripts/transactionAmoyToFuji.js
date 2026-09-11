@@ -64,8 +64,15 @@ async function main() {
     console.log(`Gas Price: ${ethers.formatUnits(receipt.gasPrice, "gwei")} Gwei`);
     console.log(`Transaction Fee: ${ethers.formatEther(approveAmoyFee)} POL`);
 
+    // PAUSA ADICIONADA: Aguarda 5 segundos para propagação do allowance no nó RPC
+    console.log("Aguardando 5 segundos para propagação do allowance na rede...");
+    await new Promise((resolve) => setTimeout(resolve, 5000));
+
     console.log("\n[2/3] Depositando LINK no Notary da Amoy...");
-    tx = await amoyNotary.deposit(LINK_ADDRESS_AMOY, amountToSend, "Fuji", receiverAddress);
+    // GASLIMIT ADICIONADO: Forçando limite de gás para evitar falha no estimateGas
+    tx = await amoyNotary.deposit(LINK_ADDRESS_AMOY, amountToSend, "Fuji", receiverAddress, {
+        gasLimit: 500000
+    });
     receipt = await tx.wait();
 
     const depositAmoyFee = receipt.gasUsed * receipt.gasPrice;

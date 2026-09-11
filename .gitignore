@@ -8,10 +8,6 @@ artifacts/
 # Environment variables
 .env
 
-# Logs
-logs/
-*.log
-
 # Debugger working directories
 .vscode/
 .idea/

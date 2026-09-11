@@ -1,0 +1,213 @@
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Cross-Chain (LINK): Amoy -> Fuji ---
+Usuário enviando: 0.001 LINK
+
+[1/3] Aprovando LINK na Amoy para o Notary...
+Aprovação concluída! Tx: 0xa95ca78c91824018fe249f20ae1f00df79158f6ab59fe056d7b8a9cff367b6aa
+Gas Used: 47177
+Gas Price: 30.000000063 Gwei
+Transaction Fee: 0.001415310002972151 POL
+
+[2/3] Depositando LINK no Notary da Amoy...
+Depósito realizado com sucesso! ID do Depósito gerado: 6
+Gas Used: 62957
+Gas Price: 30.000000063 Gwei
+Transaction Fee: 0.001888710003966291 POL
+
+[3/3] Nó validador executando a ponte na Fuji...
+Execução concluída! Tx: 0x1feb77a7c67ee8e136cca344c4d9aa332512fa93bf7568fe683b71755e012947
+Gas Used: 78455
+Gas Price: 0.00000016 Gwei
+Transaction Fee: 0.0000000000125528 AVAX
+Saldo na Fuji ANTES: 5.506 LINK
+Saldo na Fuji DEPOIS: 5.507 LINK
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬────────────────────────┬─────────┬───────────────┬────────────────┬────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │          step          │ gasUsed │  gasPriceWei  │  gasPriceGwei  │ transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼────────────────────────┼─────────┼───────────────┼────────────────┼────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │    'approve (Amoy)'    │ '47177' │ '30000000063' │ '30.000000063' │ '1415310002972151' │ '0.001415310002972151' │    'POL'    │ '0xa95ca78c91824018fe249f20ae1f00df79158f6ab59fe056d7b8a9cff367b6aa' │
+│    1    │    'deposit (Amoy)'    │ '62957' │ '30000000063' │ '30.000000063' │ '1888710003966291' │ '0.001888710003966291' │    'POL'    │ '0x7b97dfcd9350d76317f3131d075e43b845d1880d1e62a19a42bbc95dd1af43dd' │
+│    2    │ 'executeBridge (Fuji)' │ '78455' │     '160'     │  '0.00000016'  │     '12552800'     │  '0.0000000000125528'  │   'AVAX'    │ '0x1feb77a7c67ee8e136cca344c4d9aa332512fa93bf7568fe683b71755e012947' │
+└─────────┴────────────────────────┴─────────┴───────────────┴────────────────┴────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+Erro ao ler log anterior, iniciando novo array de logs.
+
+💾 [LOGGER] Dados da transação salvos em: logs/testnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Cross-Chain (LINK): Amoy -> Fuji ---
+Usuário enviando: 0.001 LINK
+
+[1/3] Aprovando LINK na Amoy para o Notary...
+Aprovação concluída! Tx: 0x3d30e299c7f3a6feb825bb8d66fdfd621e267c26186d041e4c6014ee0055d3de
+Gas Used: 47177
+Gas Price: 150.000000252 Gwei
+Transaction Fee: 0.007076550011888604 POL
+
+[2/3] Depositando LINK no Notary da Amoy...
+Depósito realizado com sucesso! ID do Depósito gerado: 7
+Gas Used: 62957
+Gas Price: 150.000000252 Gwei
+Transaction Fee: 0.009443550015865164 POL
+
+[3/3] Nó validador executando a ponte na Fuji...
+Execução concluída! Tx: 0xf46d9f5c491802305412e50d63b5e880e58bb9c22a2a0837fcd706af2940d71e
+Gas Used: 78455
+Gas Price: 0.00000016 Gwei
+Transaction Fee: 0.0000000000125528 AVAX
+Saldo na Fuji ANTES: 5.506 LINK
+Saldo na Fuji DEPOIS: 5.507 LINK
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬────────────────────────┬─────────┬────────────────┬─────────────────┬────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │          step          │ gasUsed │  gasPriceWei   │  gasPriceGwei   │ transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼────────────────────────┼─────────┼────────────────┼─────────────────┼────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │    'approve (Amoy)'    │ '47177' │ '150000000252' │ '150.000000252' │ '7076550011888604' │ '0.007076550011888604' │    'POL'    │ '0x3d30e299c7f3a6feb825bb8d66fdfd621e267c26186d041e4c6014ee0055d3de' │
+│    1    │    'deposit (Amoy)'    │ '62957' │ '150000000252' │ '150.000000252' │ '9443550015865164' │ '0.009443550015865164' │    'POL'    │ '0x51f928cccdbc6d72043151e3547326f12698e8eb0a7447b297a4ce1e9e137be7' │
+│    2    │ 'executeBridge (Fuji)' │ '78455' │     '160'      │  '0.00000016'   │     '12552800'     │  '0.0000000000125528'  │   'AVAX'    │ '0xf46d9f5c491802305412e50d63b5e880e58bb9c22a2a0837fcd706af2940d71e' │
+└─────────┴────────────────────────┴─────────┴────────────────┴─────────────────┴────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/testnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Cross-Chain (LINK): Amoy -> Fuji ---
+Usuário enviando: 0.001 LINK
+
+[1/3] Aprovando LINK na Amoy para o Notary...
+Aprovação concluída! Tx: 0xe5da82edbbb81f44a5c71cb4144351121d86a219ad354580a1dfa6f5aa5a16c1
+Gas Used: 47177
+Gas Price: 79.509786027 Gwei
+Transaction Fee: 0.003751033175395779 POL
+
+[2/3] Depositando LINK no Notary da Amoy...
+Depósito realizado com sucesso! ID do Depósito gerado: 8
+Gas Used: 62957
+Gas Price: 79.509786027 Gwei
+Transaction Fee: 0.005005697598901839 POL
+
+[3/3] Nó validador executando a ponte na Fuji...
+Execução concluída! Tx: 0x01b588881dc1cf51794cb1a917de59da3f1e6869a95e7404cb05f6ea7ab374b9
+Gas Used: 78455
+Gas Price: 0.00000016 Gwei
+Transaction Fee: 0.0000000000125528 AVAX
+Saldo na Fuji ANTES: 5.506 LINK
+Saldo na Fuji DEPOIS: 5.507 LINK
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬────────────────────────┬─────────┬───────────────┬────────────────┬────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │          step          │ gasUsed │  gasPriceWei  │  gasPriceGwei  │ transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼────────────────────────┼─────────┼───────────────┼────────────────┼────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │    'approve (Amoy)'    │ '47177' │ '79509786027' │ '79.509786027' │ '3751033175395779' │ '0.003751033175395779' │    'POL'    │ '0xe5da82edbbb81f44a5c71cb4144351121d86a219ad354580a1dfa6f5aa5a16c1' │
+│    1    │    'deposit (Amoy)'    │ '62957' │ '79509786027' │ '79.509786027' │ '5005697598901839' │ '0.005005697598901839' │    'POL'    │ '0xd07ccaa696911d918dda0e0c189debf95567723af84d6bacaf95dd058876733b' │
+│    2    │ 'executeBridge (Fuji)' │ '78455' │     '160'     │  '0.00000016'  │     '12552800'     │  '0.0000000000125528'  │   'AVAX'    │ '0x01b588881dc1cf51794cb1a917de59da3f1e6869a95e7404cb05f6ea7ab374b9' │
+└─────────┴────────────────────────┴─────────┴───────────────┴────────────────┴────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/testnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Cross-Chain (LINK): Amoy -> Fuji ---
+Usuário enviando: 0.001 LINK
+
+[1/3] Aprovando LINK na Amoy para o Notary...
+Aprovação concluída! Tx: 0xfdee07eb6d0513ff44f40c35944465d432f4313d75ef47461ced4a21d4719781
+Gas Used: 47177
+Gas Price: 105.260505909 Gwei
+Transaction Fee: 0.004965874887268893 POL
+
+[2/3] Depositando LINK no Notary da Amoy...
+Depósito realizado com sucesso! ID do Depósito gerado: 9
+Gas Used: 62957
+Gas Price: 105.260505909 Gwei
+Transaction Fee: 0.006626885670512913 POL
+
+[3/3] Nó validador executando a ponte na Fuji...
+Execução concluída! Tx: 0xeb0981b85b40f2443cabd5bbd62970f9e4e07e05d70df70742d14e9fbe6a7c83
+Gas Used: 78455
+Gas Price: 0.00000016 Gwei
+Transaction Fee: 0.0000000000125528 AVAX
+Saldo na Fuji ANTES: 5.506 LINK
+Saldo na Fuji DEPOIS: 5.507 LINK
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬────────────────────────┬─────────┬────────────────┬─────────────────┬────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │          step          │ gasUsed │  gasPriceWei   │  gasPriceGwei   │ transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼────────────────────────┼─────────┼────────────────┼─────────────────┼────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │    'approve (Amoy)'    │ '47177' │ '105260505909' │ '105.260505909' │ '4965874887268893' │ '0.004965874887268893' │    'POL'    │ '0xfdee07eb6d0513ff44f40c35944465d432f4313d75ef47461ced4a21d4719781' │
+│    1    │    'deposit (Amoy)'    │ '62957' │ '105260505909' │ '105.260505909' │ '6626885670512913' │ '0.006626885670512913' │    'POL'    │ '0xda5c51dead5d84bfcacf99f598cc252c6ca20292e4d51e037b900a48878b8be4' │
+│    2    │ 'executeBridge (Fuji)' │ '78455' │     '160'      │  '0.00000016'   │     '12552800'     │  '0.0000000000125528'  │   'AVAX'    │ '0xeb0981b85b40f2443cabd5bbd62970f9e4e07e05d70df70742d14e9fbe6a7c83' │
+└─────────┴────────────────────────┴─────────┴────────────────┴─────────────────┴────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/testnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Cross-Chain (LINK): Amoy -> Fuji ---
+Usuário enviando: 0.001 LINK
+
+[1/3] Aprovando LINK na Amoy para o Notary...
+Aprovação concluída! Tx: 0x9c28c22bf20d0b0de712104fcc56d7beaa132b5ad02d3094fc71bda15c006f93
+Gas Used: 47177
+Gas Price: 30.000000063 Gwei
+Transaction Fee: 0.001415310002972151 POL
+
+[2/3] Depositando LINK no Notary da Amoy...
+Depósito realizado com sucesso! ID do Depósito gerado: 10
+Gas Used: 62957
+Gas Price: 30.000000063 Gwei
+Transaction Fee: 0.001888710003966291 POL
+
+[3/3] Nó validador executando a ponte na Fuji...
+Execução concluída! Tx: 0xc51eb3b6577167ec3c8e1576fcbf60e883bb726708f7eff142724595eccd4a08
+Gas Used: 78455
+Gas Price: 0.00000016 Gwei
+Transaction Fee: 0.0000000000125528 AVAX
+Saldo na Fuji ANTES: 5.506 LINK
+Saldo na Fuji DEPOIS: 5.507 LINK
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬────────────────────────┬─────────┬───────────────┬────────────────┬────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │          step          │ gasUsed │  gasPriceWei  │  gasPriceGwei  │ transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼────────────────────────┼─────────┼───────────────┼────────────────┼────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │    'approve (Amoy)'    │ '47177' │ '30000000063' │ '30.000000063' │ '1415310002972151' │ '0.001415310002972151' │    'POL'    │ '0x9c28c22bf20d0b0de712104fcc56d7beaa132b5ad02d3094fc71bda15c006f93' │
+│    1    │    'deposit (Amoy)'    │ '62957' │ '30000000063' │ '30.000000063' │ '1888710003966291' │ '0.001888710003966291' │    'POL'    │ '0x2295011c9923e10e36e44a21953b34694d0d28d99e5c08882b363851d3c535dd' │
+│    2    │ 'executeBridge (Fuji)' │ '78455' │     '160'     │  '0.00000016'  │     '12552800'     │  '0.0000000000125528'  │   'AVAX'    │ '0xc51eb3b6577167ec3c8e1576fcbf60e883bb726708f7eff142724595eccd4a08' │
+└─────────┴────────────────────────┴─────────┴───────────────┴────────────────┴────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/testnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Cross-Chain (LINK): Amoy -> Fuji ---
+Usuário enviando: 0.001 LINK
+
+[1/3] Aprovando LINK na Amoy para o Notary...
+Aprovação concluída! Tx: 0x98f76b7c8dc81c436f20044f3c59001ccae7ca8c7b536d58702e74499a6520a8
+Gas Used: 47177
+Gas Price: 30.000000063 Gwei
+Transaction Fee: 0.001415310002972151 POL
+
+[2/3] Depositando LINK no Notary da Amoy...
+Depósito realizado com sucesso! ID do Depósito gerado: 11
+Gas Used: 62957
+Gas Price: 30.000000063 Gwei
+Transaction Fee: 0.001888710003966291 POL
+
+[3/3] Nó validador executando a ponte na Fuji...
+Execução concluída! Tx: 0xa95de506fd2d2ea003388ffac78b64a74eaabb99ed0e5a20e3fea4ff425c6b2a
+Gas Used: 78455
+Gas Price: 0.00000016 Gwei
+Transaction Fee: 0.0000000000125528 AVAX
+Saldo na Fuji ANTES: 5.506 LINK
+Saldo na Fuji DEPOIS: 5.507 LINK
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬────────────────────────┬─────────┬───────────────┬────────────────┬────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │          step          │ gasUsed │  gasPriceWei  │  gasPriceGwei  │ transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼────────────────────────┼─────────┼───────────────┼────────────────┼────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │    'approve (Amoy)'    │ '47177' │ '30000000063' │ '30.000000063' │ '1415310002972151' │ '0.001415310002972151' │    'POL'    │ '0x98f76b7c8dc81c436f20044f3c59001ccae7ca8c7b536d58702e74499a6520a8' │
+│    1    │    'deposit (Amoy)'    │ '62957' │ '30000000063' │ '30.000000063' │ '1888710003966291' │ '0.001888710003966291' │    'POL'    │ '0xa39c9a38a1c5de5bf1c141b70ac32e6bd9d9ab416ef1d5300efc42c2d04ace5a' │
+│    2    │ 'executeBridge (Fuji)' │ '78455' │     '160'     │  '0.00000016'  │     '12552800'     │  '0.0000000000125528'  │   'AVAX'    │ '0xa95de506fd2d2ea003388ffac78b64a74eaabb99ed0e5a20e3fea4ff425c6b2a' │
+└─────────┴────────────────────────┴─────────┴───────────────┴────────────────┴────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/testnet_logs.json
+
+// PARADA DOS EXPERIMENTOS

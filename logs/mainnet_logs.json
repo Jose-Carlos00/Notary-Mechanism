@@ -1,0 +1,116 @@
+[
+  {
+    "timestamp": "2026-09-10T03:00:35.951Z",
+    "environment": "MAINNET",
+    "flow": "Polygon -> Avalanche",
+    "totalGasUsed": "239853",
+    "steps": [
+      {
+        "step": "approve (Polygon)",
+        "gasUsed": "66345",
+        "gasPriceWei": "281739530545",
+        "gasPriceGwei": "281.739530545",
+        "transactionFeeWei": "18692009154008025",
+        "transactionFee": "0.018692009154008025",
+        "nativeToken": "POL",
+        "txHash": "0x6f4dd2e5658249fa8d52f6eb39c133424b9e553a652e6a90e042714ac47999a0"
+      },
+      {
+        "step": "deposit (Polygon)",
+        "gasUsed": "82213",
+        "gasPriceWei": "279085598335",
+        "gasPriceGwei": "279.085598335",
+        "transactionFeeWei": "22944464295915355",
+        "transactionFee": "0.022944464295915355",
+        "nativeToken": "POL",
+        "txHash": "0x34b774222ffd47f333f6599b528cfe48e424ae789ae8f8d718a6b8dd3f41ed25"
+      },
+      {
+        "step": "executeBridge (Avalanche)",
+        "gasUsed": "91295",
+        "gasPriceWei": "85086186",
+        "gasPriceGwei": "0.085086186",
+        "transactionFeeWei": "7767943350870",
+        "transactionFee": "0.00000776794335087",
+        "nativeToken": "AVAX",
+        "txHash": "0x20cc0517895750cd06df3f9ae0fa78e36f62d690b89773c38d9f56c7736f62ba"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T13:43:12.096Z",
+    "environment": "MAINNET",
+    "flow": "Avalanche -> Polygon",
+    "totalGasUsed": "237081",
+    "steps": [
+      {
+        "step": "approve (Avalanche)",
+        "gasUsed": "55425",
+        "gasPriceWei": "124844531",
+        "gasPriceGwei": "0.124844531",
+        "transactionFeeWei": "6919508130675",
+        "transactionFee": "0.000006919508130675",
+        "nativeToken": "AVAX",
+        "txHash": "0xd07086a2d0f8cbcd1c3d17f430926b17b2d8e188a054971e9906445c8c859e43"
+      },
+      {
+        "step": "deposit (Avalanche)",
+        "gasUsed": "65977",
+        "gasPriceWei": "112861824",
+        "gasPriceGwei": "0.112861824",
+        "transactionFeeWei": "7446284562048",
+        "transactionFee": "0.000007446284562048",
+        "nativeToken": "AVAX",
+        "txHash": "0xa9117143873e2769851c0d99b51b3c55199fcbaf8c4ce31c6b5a83105cbeb1ec"
+      },
+      {
+        "step": "executeBridge (Polygon)",
+        "gasUsed": "115679",
+        "gasPriceWei": "273234860497",
+        "gasPriceGwei": "273.234860497",
+        "transactionFeeWei": "31607535427432463",
+        "transactionFee": "0.031607535427432463",
+        "nativeToken": "POL",
+        "txHash": "0x8f78ad8f078dc6aeff8c125d57002e1cc3db90cd5120bfb63f4c30d3101724fc"
+      }
+    ]
+  },
+  {
+    "timestamp": "2026-09-10T21:08:10.075Z",
+    "environment": "MAINNET",
+    "flow": "Avalanche -> Polygon",
+    "totalGasUsed": "237081",
+    "steps": [
+      {
+        "step": "approve (Avalanche)",
+        "gasUsed": "55425",
+        "gasPriceWei": "174876587",
+        "gasPriceGwei": "0.174876587",
+        "transactionFeeWei": "9692534834475",
+        "transactionFee": "0.000009692534834475",
+        "nativeToken": "AVAX",
+        "txHash": "0x3c95b47d8b3289b407ab717e03e770146bacd54347cfa30a97a5242c6665ed01"
+      },
+      {
+        "step": "deposit (Avalanche)",
+        "gasUsed": "65977",
+        "gasPriceWei": "108699130",
+        "gasPriceGwei": "0.10869913",
+        "transactionFeeWei": "7171642500010",
+        "transactionFee": "0.00000717164250001",
+        "nativeToken": "AVAX",
+        "txHash": "0x1bff5a6c1817ea6c090661c5bd0cf93d1fa6f96e0f12f0e38fc67b52a989b6bd"
+      },
+      {
+        "step": "executeBridge (Polygon)",
+        "gasUsed": "115679",
+        "gasPriceWei": "261404302122",
+        "gasPriceGwei": "261.404302122",
+        "transactionFeeWei": "30238988265170838",
+        "transactionFee": "0.030238988265170838",
+        "nativeToken": "POL",
+        "txHash": "0xba75db6efd76319de2dffd632aec0dd9bbf768bd2e7df0e425738159d345d0b4"
+      }
+    ]
+  }
+]

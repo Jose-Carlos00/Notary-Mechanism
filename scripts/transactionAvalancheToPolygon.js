@@ -65,7 +65,8 @@ async function main() {
     console.log(`Gas Used: ${receipt.gasUsed.toString()}`);
     console.log(`Gas Price: ${ethers.formatUnits(receipt.gasPrice, "gwei")} Gwei`);
     console.log(`Transaction Fee: ${ethers.formatEther(approveAvalancheFee)} AVAX`);
-
+    console.log("Aguardando 5 segundos para propagação do allowance na rede...");
+    await new Promise((resolve) => setTimeout(resolve, 5000));
     console.log("\n[2/3] Depositando USDC no Notary da Avalanche...");
     tx = await avalancheNotary.deposit(
         USDC_ADDRESS_AVALANCHE,

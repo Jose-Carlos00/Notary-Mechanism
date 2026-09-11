@@ -1,0 +1,486 @@
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0x407ac1c477ae04d4a39cf1b9b02d6a0b66e6519501c1553802d133d6f7995705
+Gas Used: 55425
+Gas Price: 0.091677728 Gwei
+Transaction Fee: 0.0000050812380744 AVAX
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 8
+Gas Used: 65977
+Gas Price: 0.087256708 Gwei
+Transaction Fee: 0.000005756935823716 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0xd83753624020c45807772a8ef4b14ecc5f0fc5a5d4cbc6e5d4417934ccca5c26
+Gas Used: 115679
+Gas Price: 275.410258637 Gwei
+Transaction Fee: 0.031859183308869523 POL
+Saldo na Polygon ANTES: 0.141599 USDC
+Saldo na Polygon DEPOIS: 0.142599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │           step            │ gasUsed  │  gasPriceWei   │  gasPriceGwei   │  transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │   'approve (Avalanche)'   │ '55425'  │   '91677728'   │  '0.091677728'  │   '5081238074400'   │  '0.0000050812380744'  │   'AVAX'    │ '0x407ac1c477ae04d4a39cf1b9b02d6a0b66e6519501c1553802d133d6f7995705' │
+│    1    │   'deposit (Avalanche)'   │ '65977'  │   '87256708'   │  '0.087256708'  │   '5756935823716'   │ '0.000005756935823716' │   'AVAX'    │ '0xc463378d8eaa22b83b2138e63bb5671cb761849b303f54a5c2bd27922eb258e4' │
+│    2    │ 'executeBridge (Polygon)' │ '115679' │ '275410258637' │ '275.410258637' │ '31859183308869523' │ '0.031859183308869523' │    'POL'    │ '0xd83753624020c45807772a8ef4b14ecc5f0fc5a5d4cbc6e5d4417934ccca5c26' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/mainnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0xa7e716d094aeac688ac119f4dff799a88a17b67085673e9a73e7d58bdea9c894
+Gas Used: 55425
+Gas Price: 0.108138358 Gwei
+Transaction Fee: 0.00000599356849215 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 9
+Gas Used: 65977
+Gas Price: 0.108270993 Gwei
+Transaction Fee: 0.000007143395305161 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0x7602ceae07f0b398cedef2a1ccde7de8aca10dd017596f11999e33641f9446a1
+Gas Used: 115679
+Gas Price: 280.676307691 Gwei
+Transaction Fee: 0.032468354597387189 POL
+Saldo na Polygon ANTES: 0.142599 USDC
+Saldo na Polygon DEPOIS: 0.143599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │           step            │ gasUsed  │  gasPriceWei   │  gasPriceGwei   │  transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │   'approve (Avalanche)'   │ '55425'  │  '108138358'   │  '0.108138358'  │   '5993568492150'   │ '0.00000599356849215'  │   'AVAX'    │ '0xa7e716d094aeac688ac119f4dff799a88a17b67085673e9a73e7d58bdea9c894' │
+│    1    │   'deposit (Avalanche)'   │ '65977'  │  '108270993'   │  '0.108270993'  │   '7143395305161'   │ '0.000007143395305161' │   'AVAX'    │ '0x0f37ac15f2013cd409780d3f81aba6d94e2d9ed67101a21941f688c70a584366' │
+│    2    │ 'executeBridge (Polygon)' │ '115679' │ '280676307691' │ '280.676307691' │ '32468354597387189' │ '0.032468354597387189' │    'POL'    │ '0x7602ceae07f0b398cedef2a1ccde7de8aca10dd017596f11999e33641f9446a1' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/mainnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0x43a44b9d13148563d3b959dfdd9eb115bde4a9d68369fc0ccee67dc68d2c1240
+Gas Used: 55425
+Gas Price: 0.10103994 Gwei
+Transaction Fee: 0.0000056001386745 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 10
+Gas Used: 65977
+Gas Price: 0.099904193 Gwei
+Transaction Fee: 0.000006591378941561 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0x881d0f547f2b2915b256cdf11232ab4003b533675ef3ad126fce339506d7f455
+Gas Used: 115679
+Gas Price: 287.224538738 Gwei
+Transaction Fee: 0.033225847416673102 POL
+Saldo na Polygon ANTES: 0.143599 USDC
+Saldo na Polygon DEPOIS: 0.144599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │           step            │ gasUsed  │  gasPriceWei   │  gasPriceGwei   │  transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │   'approve (Avalanche)'   │ '55425'  │  '101039940'   │  '0.10103994'   │   '5600138674500'   │  '0.0000056001386745'  │   'AVAX'    │ '0x43a44b9d13148563d3b959dfdd9eb115bde4a9d68369fc0ccee67dc68d2c1240' │
+│    1    │   'deposit (Avalanche)'   │ '65977'  │   '99904193'   │  '0.099904193'  │   '6591378941561'   │ '0.000006591378941561' │   'AVAX'    │ '0x295b32a0f7307251f1a7539ac2d689081d5dce7677f01a58d64e87688e394a7c' │
+│    2    │ 'executeBridge (Polygon)' │ '115679' │ '287224538738' │ '287.224538738' │ '33225847416673102' │ '0.033225847416673102' │    'POL'    │ '0x881d0f547f2b2915b256cdf11232ab4003b533675ef3ad126fce339506d7f455' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/mainnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0xe34456efe3462a450a4ffbf9c93ad0126c9099fbdd242d8d0a79aaf35baea55a
+Gas Used: 55425
+Gas Price: 0.121809525 Gwei
+Transaction Fee: 0.000006751292923125 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 11
+Gas Used: 65977
+Gas Price: 0.123635216 Gwei
+Transaction Fee: 0.000008157080646032 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0x74eb4a70633a1d268b984c0003a369b5b8d45257e09e7a6417dcc1d0426c939d
+Gas Used: 115679
+Gas Price: 277.126249992 Gwei
+Transaction Fee: 0.032057687472824568 POL
+Saldo na Polygon ANTES: 0.144599 USDC
+Saldo na Polygon DEPOIS: 0.145599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │           step            │ gasUsed  │  gasPriceWei   │  gasPriceGwei   │  transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │   'approve (Avalanche)'   │ '55425'  │  '121809525'   │  '0.121809525'  │   '6751292923125'   │ '0.000006751292923125' │   'AVAX'    │ '0xe34456efe3462a450a4ffbf9c93ad0126c9099fbdd242d8d0a79aaf35baea55a' │
+│    1    │   'deposit (Avalanche)'   │ '65977'  │  '123635216'   │  '0.123635216'  │   '8157080646032'   │ '0.000008157080646032' │   'AVAX'    │ '0xc1df950b7b2043fb2cac307a30dff2083214ddffdacfe237be302e274988f44b' │
+│    2    │ 'executeBridge (Polygon)' │ '115679' │ '277126249992' │ '277.126249992' │ '32057687472824568' │ '0.032057687472824568' │    'POL'    │ '0x74eb4a70633a1d268b984c0003a369b5b8d45257e09e7a6417dcc1d0426c939d' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/mainnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0x682d559790912e55127b2963867e0ef1afd76543000fedf8820185a14e4960f1
+Gas Used: 55425
+Gas Price: 0.103376858 Gwei
+Transaction Fee: 0.00000572966235465 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 12
+Gas Used: 65977
+Gas Price: 0.09466963 Gwei
+Transaction Fee: 0.00000624601817851 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0xab0d7a06591fc5fce6622b138f6021f03e1f7c008bee75178f9af2c91f873131
+Gas Used: 115679
+Gas Price: 277.747576265 Gwei
+Transaction Fee: 0.032129561874758935 POL
+Saldo na Polygon ANTES: 0.145599 USDC
+Saldo na Polygon DEPOIS: 0.146599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │           step            │ gasUsed  │  gasPriceWei   │  gasPriceGwei   │  transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │   'approve (Avalanche)'   │ '55425'  │  '103376858'   │  '0.103376858'  │   '5729662354650'   │ '0.00000572966235465'  │   'AVAX'    │ '0x682d559790912e55127b2963867e0ef1afd76543000fedf8820185a14e4960f1' │
+│    1    │   'deposit (Avalanche)'   │ '65977'  │   '94669630'   │  '0.09466963'   │   '6246018178510'   │ '0.00000624601817851'  │   'AVAX'    │ '0xe514d0b44e69c236562ca0115fcc23424dd884725b114cfd330c92c805095a13' │
+│    2    │ 'executeBridge (Polygon)' │ '115679' │ '277747576265' │ '277.747576265' │ '32129561874758935' │ '0.032129561874758935' │    'POL'    │ '0xab0d7a06591fc5fce6622b138f6021f03e1f7c008bee75178f9af2c91f873131' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/mainnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0x9866f1b1313c77c020ff0c7b0edfdb49df1d63558733ecc69e6551336bc10a90
+Gas Used: 55425
+Gas Price: 0.104012484 Gwei
+Transaction Fee: 0.0000057648919257 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 13
+Gas Used: 65977
+Gas Price: 0.095354394 Gwei
+Transaction Fee: 0.000006291196852938 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Error: missing revert data (action="call", data=null, reason=null, transaction={ "data": "0x70a0823100000000000000000000000099b2231f40bb6dd84b21fd16b8487fe5898bb1c5", "from": "0x99B2231f40bB6DD84B21Fd16b8487fe5898bB1c5", "to": "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359" }, invocation=null, revert=null, code=CALL_EXCEPTION, version=6.14.3)
+    at makeError (/home/josecarlos/codigos/Notary-Mechanism/node_modules/ethers/src.ts/utils/errors.ts:698:21)
+    at getBuiltinCallException (/home/josecarlos/codigos/Notary-Mechanism/node_modules/ethers/src.ts/abi/abi-coder.ts:118:21)
+    at Function.getBuiltinCallException (/home/josecarlos/codigos/Notary-Mechanism/node_modules/ethers/src.ts/abi/abi-coder.ts:235:16)
+    at JsonRpcProvider.getRpcError (/home/josecarlos/codigos/Notary-Mechanism/node_modules/ethers/src.ts/providers/provider-jsonrpc.ts:1016:32)
+    at /home/josecarlos/codigos/Notary-Mechanism/node_modules/ethers/src.ts/providers/provider-jsonrpc.ts:571:45
+    at processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  code: 'CALL_EXCEPTION',
+  action: 'call',
+  data: null,
+  reason: null,
+  transaction: {
+    to: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
+    data: '0x70a0823100000000000000000000000099b2231f40bb6dd84b21fd16b8487fe5898bb1c5',
+    from: '0x99B2231f40bB6DD84B21Fd16b8487fe5898bB1c5'
+  },
+  invocation: null,
+  revert: null,
+  shortMessage: 'missing revert data',
+  info: {
+    error: { code: -32603, message: 'Internal error' },
+    payload: { method: 'eth_call', params: [Array], id: 3, jsonrpc: '2.0' }
+  }
+}
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0xa4839ba00a9eb7f85414b229db312d36076d5545b33e0ffddc1fea672d4f3b32
+Gas Used: 55425
+Gas Price: 0.096180863 Gwei
+Transaction Fee: 0.000005330824331775 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 14
+Gas Used: 65977
+Gas Price: 0.094596843 Gwei
+Transaction Fee: 0.000006241215910611 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0x5aa3dccfaf998d696e69b763ddd26c8ba861b04d0bd2ad68f29e9d8bd9697bc7
+Gas Used: 115679
+Gas Price: 275.335679437 Gwei
+Transaction Fee: 0.031850556061592723 POL
+Saldo na Polygon ANTES: 0.146599 USDC
+Saldo na Polygon DEPOIS: 0.147599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │           step            │ gasUsed  │  gasPriceWei   │  gasPriceGwei   │  transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │   'approve (Avalanche)'   │ '55425'  │   '96180863'   │  '0.096180863'  │   '5330824331775'   │ '0.000005330824331775' │   'AVAX'    │ '0xa4839ba00a9eb7f85414b229db312d36076d5545b33e0ffddc1fea672d4f3b32' │
+│    1    │   'deposit (Avalanche)'   │ '65977'  │   '94596843'   │  '0.094596843'  │   '6241215910611'   │ '0.000006241215910611' │   'AVAX'    │ '0xed8f4241b42db1cfee12b3b1f2436f2451eba85e875eb9a4b1dfbae1674b7658' │
+│    2    │ 'executeBridge (Polygon)' │ '115679' │ '275335679437' │ '275.335679437' │ '31850556061592723' │ '0.031850556061592723' │    'POL'    │ '0x5aa3dccfaf998d696e69b763ddd26c8ba861b04d0bd2ad68f29e9d8bd9697bc7' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/mainnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Killed
+//atrasado
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0x9f6bc459d4b0fd464628edd5275800cbba31884f19fe923fa246ec8250c604b5
+Gas Used: 55425
+Gas Price: 1.420299544 Gwei
+Transaction Fee: 0.0000787201022262 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 15
+Gas Used: 65977
+Gas Price: 1.461571835 Gwei
+Transaction Fee: 0.000096430124957795 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0x3451e664794c9d4cd76601126aef94b96223dc6f868f434e66c3b645241cd3f4
+Gas Used: 115679
+Gas Price: 275.307101894 Gwei
+Transaction Fee: 0.031847250239996026 POL
+Saldo na Polygon ANTES: 0.147599 USDC
+Saldo na Polygon DEPOIS: 0.148599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │           step            │ gasUsed  │  gasPriceWei   │  gasPriceGwei   │  transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │   'approve (Avalanche)'   │ '55425'  │  '1420299544'  │  '1.420299544'  │  '78720102226200'   │  '0.0000787201022262'  │   'AVAX'    │ '0x9f6bc459d4b0fd464628edd5275800cbba31884f19fe923fa246ec8250c604b5' │
+│    1    │   'deposit (Avalanche)'   │ '65977'  │  '1461571835'  │  '1.461571835'  │  '96430124957795'   │ '0.000096430124957795' │   'AVAX'    │ '0x57da59f4394c75c991690e1bcd85313ee688c6c8dd773d270b0be1adf7446f73' │
+│    2    │ 'executeBridge (Polygon)' │ '115679' │ '275307101894' │ '275.307101894' │ '31847250239996026' │ '0.031847250239996026' │    'POL'    │ '0x3451e664794c9d4cd76601126aef94b96223dc6f868f434e66c3b645241cd3f4' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/mainnet_logs.json
+//atrasado
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0x7131aead3f7cb5228d2d3ddccb373e135d0f46d69dbd24f24a8ca4ed13043a8b
+Gas Used: 55425
+Gas Price: 0.092431516 Gwei
+Transaction Fee: 0.0000051230167743 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 16
+Gas Used: 65977
+Gas Price: 0.089132056 Gwei
+Transaction Fee: 0.000005880665658712 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0x49b66a5a1ddede043c7dbb241513668b0ae64d505f8952a18415d4ec9f9aba12
+Gas Used: 115679
+Gas Price: 272.539873093 Gwei
+Transaction Fee: 0.031527139979525147 POL
+Saldo na Polygon ANTES: 0.147599 USDC
+Saldo na Polygon DEPOIS: 0.148599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │           step            │ gasUsed  │  gasPriceWei   │  gasPriceGwei   │  transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │   'approve (Avalanche)'   │ '55425'  │   '92431516'   │  '0.092431516'  │   '5123016774300'   │  '0.0000051230167743'  │   'AVAX'    │ '0x7131aead3f7cb5228d2d3ddccb373e135d0f46d69dbd24f24a8ca4ed13043a8b' │
+│    1    │   'deposit (Avalanche)'   │ '65977'  │   '89132056'   │  '0.089132056'  │   '5880665658712'   │ '0.000005880665658712' │   'AVAX'    │ '0x33f0b061c64e4d69ad1b40e5d8c4eb144ab0c9e05029bef6b83176ae9588b886' │
+│    2    │ 'executeBridge (Polygon)' │ '115679' │ '272539873093' │ '272.539873093' │ '31527139979525147' │ '0.031527139979525147' │    'POL'    │ '0x49b66a5a1ddede043c7dbb241513668b0ae64d505f8952a18415d4ec9f9aba12' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/mainnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0xd993ebe8260684db3f99939dcae08c1fc65961872d6b0d10e6fe66081d95b3ff
+Gas Used: 55425
+Gas Price: 0.075576948 Gwei
+Transaction Fee: 0.0000041888523429 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 17
+Gas Used: 65977
+Gas Price: 0.071680158 Gwei
+Transaction Fee: 0.000004729241784366 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0x7aa0a16b52979ad74ead2d8ec4e909e16afa2c15977c6b88c0e7c300d299e305
+Gas Used: 115679
+Gas Price: 274.736244826 Gwei
+Transaction Fee: 0.031781214065226854 POL
+Saldo na Polygon ANTES: 0.147599 USDC
+Saldo na Polygon DEPOIS: 0.148599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │           step            │ gasUsed  │  gasPriceWei   │  gasPriceGwei   │  transactionFeeWei  │     transactionFee     │ nativeToken │                                txHash                                │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│    0    │   'approve (Avalanche)'   │ '55425'  │   '75576948'   │  '0.075576948'  │   '4188852342900'   │  '0.0000041888523429'  │   'AVAX'    │ '0xd993ebe8260684db3f99939dcae08c1fc65961872d6b0d10e6fe66081d95b3ff' │
+│    1    │   'deposit (Avalanche)'   │ '65977'  │   '71680158'   │  '0.071680158'  │   '4729241784366'   │ '0.000004729241784366' │   'AVAX'    │ '0x2939bcb03cf2d89bb8f2638c319232343af294bdc734ab12336ae28199f24732' │
+│    2    │ 'executeBridge (Polygon)' │ '115679' │ '274736244826' │ '274.736244826' │ '31781214065226854' │ '0.031781214065226854' │    'POL'    │ '0x7aa0a16b52979ad74ead2d8ec4e909e16afa2c15977c6b88c0e7c300d299e305' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+💾 [LOGGER] Dados da transação salvos em: logs/mainnet_logs.json
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0x915e85bb1fafb7f05eb37014eee1e40114cc34a815c2e41d344550e4b4695a7b
+Gas Used: 55425
+Gas Price: 0.145464657 Gwei
+Transaction Fee: 0.000008062378614225 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 18
+Gas Used: 65977
+Gas Price: 0.146007758 Gwei
+Transaction Fee: 0.000009633153849566 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0xc1a1ff7b34aead1ba1a11f28b89994beeb25634719a04a9df73f4be24a35c7a4
+Gas Used: 115679
+Gas Price: 260.83329061 Gwei
+Transaction Fee: 0.03017293422447419 POL
+Saldo na Polygon ANTES: 0.148599 USDC
+Saldo na Polygon DEPOIS: 0.149599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │ step                      │ gasUsed  │ gasPriceWei    │ gasPriceGwei   │ transactionFeeWei   │ transactionFee         │ nativeToken │ txHash                                                               │
+├─────────┼───────────────────────────┼──────────┼────────────────┼────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│ 0       │ 'approve (Avalanche)'     │ '55425'  │ '145464657'    │ '0.145464657'  │ '8062378614225'     │ '0.000008062378614225' │ 'AVAX'      │ '0x915e85bb1fafb7f05eb37014eee1e40114cc34a815c2e41d344550e4b4695a7b' │
+│ 1       │ 'deposit (Avalanche)'     │ '65977'  │ '146007758'    │ '0.146007758'  │ '9633153849566'     │ '0.000009633153849566' │ 'AVAX'      │ '0xdaae01cfb814718765eb28cb4b1991e0e78bbb3b855afaaae7deca7677319e8e' │
+│ 2       │ 'executeBridge (Polygon)' │ '115679' │ '260833290610' │ '260.83329061' │ '30172934224474190' │ '0.03017293422447419'  │ 'POL'       │ '0xc1a1ff7b34aead1ba1a11f28b89994beeb25634719a04a9df73f4be24a35c7a4' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0xd07086a2d0f8cbcd1c3d17f430926b17b2d8e188a054971e9906445c8c859e43
+Gas Used: 55425
+Gas Price: 0.124844531 Gwei
+Transaction Fee: 0.000006919508130675 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 19
+Gas Used: 65977
+Gas Price: 0.112861824 Gwei
+Transaction Fee: 0.000007446284562048 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0x8f78ad8f078dc6aeff8c125d57002e1cc3db90cd5120bfb63f4c30d3101724fc
+Gas Used: 115679
+Gas Price: 273.234860497 Gwei
+Transaction Fee: 0.031607535427432463 POL
+Saldo na Polygon ANTES: 0.149599 USDC
+Saldo na Polygon DEPOIS: 0.150599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │ step                      │ gasUsed  │ gasPriceWei    │ gasPriceGwei    │ transactionFeeWei   │ transactionFee         │ nativeToken │ txHash                                                               │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│ 0       │ 'approve (Avalanche)'     │ '55425'  │ '124844531'    │ '0.124844531'   │ '6919508130675'     │ '0.000006919508130675' │ 'AVAX'      │ '0xd07086a2d0f8cbcd1c3d17f430926b17b2d8e188a054971e9906445c8c859e43' │
+│ 1       │ 'deposit (Avalanche)'     │ '65977'  │ '112861824'    │ '0.112861824'   │ '7446284562048'     │ '0.000007446284562048' │ 'AVAX'      │ '0xa9117143873e2769851c0d99b51b3c55199fcbaf8c4ce31c6b5a83105cbeb1ec' │
+│ 2       │ 'executeBridge (Polygon)' │ '115679' │ '273234860497' │ '273.234860497' │ '31607535427432463' │ '0.031607535427432463' │ 'POL'       │ '0x8f78ad8f078dc6aeff8c125d57002e1cc3db90cd5120bfb63f4c30d3101724fc' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
+npm warn cli npm v11.13.0 does not support Node.js v18.19.1. This version of npm supports the following node versions: `^20.17.0 || >=22.9.0`. You can find the latest version at https://nodejs.org/.
+--- Iniciando Transação Mainnet (USDC): Avalanche -> Polygon ---
+Usuário enviando: 0.001 USDC
+
+[1/3] Aprovando USDC na Avalanche para o Notary...
+Aprovação concluída! Tx: 0x3c95b47d8b3289b407ab717e03e770146bacd54347cfa30a97a5242c6665ed01
+Gas Used: 55425
+Gas Price: 0.174876587 Gwei
+Transaction Fee: 0.000009692534834475 AVAX
+Aguardando 5 segundos para propagação do allowance na rede...
+
+[2/3] Depositando USDC no Notary da Avalanche...
+Depósito realizado com sucesso! ID do Depósito gerado: 20
+Gas Used: 65977
+Gas Price: 0.10869913 Gwei
+Transaction Fee: 0.00000717164250001 AVAX
+
+[3/3] Nó validador executando a ponte na Polygon...
+Execução concluída! Tx: 0xba75db6efd76319de2dffd632aec0dd9bbf768bd2e7df0e425738159d345d0b4
+Gas Used: 115679
+Gas Price: 261.404302122 Gwei
+Transaction Fee: 0.030238988265170838 POL
+Saldo na Polygon ANTES: 0.151599 USDC
+Saldo na Polygon DEPOIS: 0.152599 USDC
+
+--- Resumo de gás (fluxo cross-chain completo) ---
+┌─────────┬───────────────────────────┬──────────┬────────────────┬─────────────────┬─────────────────────┬────────────────────────┬─────────────┬──────────────────────────────────────────────────────────────────────┐
+│ (index) │ step                      │ gasUsed  │ gasPriceWei    │ gasPriceGwei    │ transactionFeeWei   │ transactionFee         │ nativeToken │ txHash                                                               │
+├─────────┼───────────────────────────┼──────────┼────────────────┼─────────────────┼─────────────────────┼────────────────────────┼─────────────┼──────────────────────────────────────────────────────────────────────┤
+│ 0       │ 'approve (Avalanche)'     │ '55425'  │ '174876587'    │ '0.174876587'   │ '9692534834475'     │ '0.000009692534834475' │ 'AVAX'      │ '0x3c95b47d8b3289b407ab717e03e770146bacd54347cfa30a97a5242c6665ed01' │
+│ 1       │ 'deposit (Avalanche)'     │ '65977'  │ '108699130'    │ '0.10869913'    │ '7171642500010'     │ '0.00000717164250001'  │ 'AVAX'      │ '0x1bff5a6c1817ea6c090661c5bd0cf93d1fa6f96e0f12f0e38fc67b52a989b6bd' │
+│ 2       │ 'executeBridge (Polygon)' │ '115679' │ '261404302122' │ '261.404302122' │ '30238988265170838' │ '0.030238988265170838' │ 'POL'       │ '0xba75db6efd76319de2dffd632aec0dd9bbf768bd2e7df0e425738159d345d0b4' │
+└─────────┴───────────────────────────┴──────────┴────────────────┴─────────────────┴─────────────────────┴────────────────────────┴─────────────┴──────────────────────────────────────────────────────────────────────┘
